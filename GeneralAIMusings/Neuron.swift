@@ -15,12 +15,16 @@ class Neuron {
     
     var rules = [Rule]()
     
+    /*
     func process() -> [Bit] {
         var result = [Bit]()
-        
         return result
     }
+    */
     
     var connections = [Neuron]()
+    
+    var ruleIndex = 0
+    var bitIndex = 0
     
 }

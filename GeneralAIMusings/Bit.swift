@@ -10,9 +10,31 @@ import Foundation
 class Bit {
     var value = false
     
+    func invert() {
+        value = !value
+    }
+    
+    static var one: Bit {
+        var result = Bit()
+        result.value = true
+        return result
+    }
+    
+    static var zero: Bit {
+        var result = Bit()
+        result.value = false
+        return result
+    }
+    
     func clone() -> Bit {
         var result = Bit()
         result.value = value
+        return result
+    }
+    
+    func cloneAndInvert() -> Bit {
+        let result = Bit()
+        result.value = !value
         return result
     }
     

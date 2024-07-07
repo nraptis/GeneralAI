@@ -108,22 +108,10 @@ class Brain {
                 neuron.outputBits.removeAll(keepingCapacity: true)
             } else {
                 
-                if neuron.rules.count >= neuron.inputBits.count {
-                    
-                    var ruleIndex = 0
-                    var inputIndex = 0
-                    while inputIndex < neuron.inputBits.count {
-                        exit(0)
-                    }
-                    
-                }
-                
+                let ruleCount = neuron.rules.count
+                let inputBitCount = neuron.inputBits.count
                 
             }
-            
-            //neuron.rules.count
-            
-            
         }
     }
 }
