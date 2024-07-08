@@ -27,7 +27,6 @@ func generateSuperHumanIntelligence() {
     while true {
         
         // 1.) Mutate the population members until we reach [count].
-        
         population = growAndEvolve_Step1(population: population,
                                          count: 10_000)
         
@@ -46,6 +45,7 @@ func generateSuperHumanIntelligence() {
 }
 ```
 </br></br>
+Step 1, mutating the seed population.
 ```
 func growAndEvolve_Step1(population: Population, count: Int) -> Population {
     
@@ -77,6 +77,7 @@ func growAndEvolve_Step1(population: Population, count: Int) -> Population {
 }
 ```
 </br></br>
+Step 2, "breeding" the brains to over-grow population.
 ```
 func growAndEvolve_Step2(population: Population, count: Int) -> Population {
     
@@ -102,6 +103,7 @@ func growAndEvolve_Step2(population: Population, count: Int) -> Population {
 }
 ```
 </br></br>
+Step 3, culling the over-grown population, keeping best brains.
 ```
 func growAndEvolve_Step3(population: Population, evaluator: Evaluator, count: Int) -> Population {
     
@@ -135,4 +137,3 @@ func growAndEvolve_Step3(population: Population, evaluator: Evaluator, count: In
     return primePopulation
 }
 ```
-</br></br>
