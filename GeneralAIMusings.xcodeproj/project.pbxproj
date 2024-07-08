@@ -22,6 +22,7 @@
 		E84B82E62C28790000551C67 /* EvaluationResult.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E52C28790000551C67 /* EvaluationResult.swift */; };
 		E84B82E82C287D0500551C67 /* Neuron.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E72C287D0500551C67 /* Neuron.swift */; };
 		E84B82EA2C2881B700551C67 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E92C2881B700551C67 /* Rule.swift */; };
+		E866E5372C3C223F009D5BD9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E866E5362C3C223F009D5BD9 /* README.md */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -42,6 +43,7 @@
 		E84B82E52C28790000551C67 /* EvaluationResult.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EvaluationResult.swift; sourceTree = "<group>"; };
 		E84B82E72C287D0500551C67 /* Neuron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neuron.swift; sourceTree = "<group>"; };
 		E84B82E92C2881B700551C67 /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
+		E866E5362C3C223F009D5BD9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,6 +60,7 @@
 		E84B82BA2C286B7B00551C67 = {
 			isa = PBXGroup;
 			children = (
+				E866E5362C3C223F009D5BD9 /* README.md */,
 				E84B82C52C286B7B00551C67 /* GeneralAIMusings */,
 				E84B82C42C286B7B00551C67 /* Products */,
 			);
@@ -160,6 +163,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E866E5372C3C223F009D5BD9 /* README.md in Resources */,
 				E84B82CE2C286B7D00551C67 /* Preview Assets.xcassets in Resources */,
 				E84B82CB2C286B7D00551C67 /* Assets.xcassets in Resources */,
 			);
