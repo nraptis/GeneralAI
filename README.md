@@ -44,7 +44,7 @@ func generateSuperHumanIntelligence() {
     }
 }
 ```
-</br></br>
+</br>
 Step 1, mutating the seed population.
 ```
 func growAndEvolve_Step1(population: Population, count: Int) -> Population {
@@ -57,7 +57,7 @@ func growAndEvolve_Step1(population: Population, count: Int) -> Population {
         growingPopulation.brains.append(brain.clone())
     }
     
-    // 1.) Mutate the population members until we reach [count].
+    // Mutate the population members until we reach [count].
     while growingPopulation.brains.count < count {
         let anyBrain: Brain
         if let randomBrain = population.brains.randomElement() {
@@ -76,7 +76,7 @@ func growAndEvolve_Step1(population: Population, count: Int) -> Population {
     return growingPopulation
 }
 ```
-</br></br>
+</br>
 Step 2, "breeding" the brains to over-grow population.
 ```
 func growAndEvolve_Step2(population: Population, count: Int) -> Population {
@@ -89,7 +89,7 @@ func growAndEvolve_Step2(population: Population, count: Int) -> Population {
         breedingPopulation.brains.append(brain.clone())
     }
     
-    // 2.) Interbreed the population members until we reach [count] * 2.
+    // Interbreed the population members until we reach [count] * 2.
     while breedingPopulation.brains.count < (count * 2) {
         
         let brain1 = population.brains.randomElement()!
