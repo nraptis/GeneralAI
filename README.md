@@ -4,13 +4,14 @@
 </br>
 Anyone is allowed to contribute to this. I will review any pull request until April 17, 2028, at which time I will re-evaluate this policy.</br></br>
 
-The idea is this:</br></br>
+The idea is this:</br>
 1.) A generalized AI is created through a Darwinian algorithm.</br>
 2.) A generalized AI constantly improves itself.</br>
 3.) A generalized AI is initially seeded by a human-directed fitness function.</br>
 4.) A generalized AI will eventually be evolved from a "population" of AI's (we call them "Brain").</br>
 5.) A generalized AI can be built from simple constituent parts.</br></br>
 The shell of the program is remarkably simple. This is the exact shell, it doesn't need to change.</br>
+</br>
 ```
 func generateSuperHumanIntelligence() {
     
@@ -44,7 +45,7 @@ func generateSuperHumanIntelligence() {
     }
 }
 ```
-</br>
+</br></br>
 Step 1, mutating the seed population.
 ```
 func growAndEvolve_Step1(population: Population, count: Int) -> Population {
@@ -76,7 +77,7 @@ func growAndEvolve_Step1(population: Population, count: Int) -> Population {
     return growingPopulation
 }
 ```
-</br>
+</br></br>
 Step 2, "breeding" the brains to over-grow population.
 ```
 func growAndEvolve_Step2(population: Population, count: Int) -> Population {
