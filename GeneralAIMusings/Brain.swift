@@ -25,11 +25,15 @@ class Brain {
         pulseCount = 100
         //+= Int.random(in: -5...5)
         
-        
-        
     }
     
+    func breed(mate: Brain) -> Brain {
+        return Brain()
+    }
     
+    func mutate() -> Brain {
+        return Brain()
+    }
     
     func removeNeuron(at index: Int) {
         if index >= 0 && index < neurons.count {
