@@ -9,6 +9,10 @@ import Foundation
 
 class Evaluator {
     
+    func evaluate(brain: Brain) -> Evaluation {
+        return .feasible(.high)
+    }
+    
     func evaluate(dataStreamInput: DataStream, dataStreamOutput: DataStream) -> Evaluation {
         
         let expectedByte = Byte()
