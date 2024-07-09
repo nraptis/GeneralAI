@@ -26,8 +26,8 @@ struct ContentView: View {
     
     private func execute() {
         DispatchQueue.global(qos: .background).async {
-            let grow = Grow()
-            grow.run()
+            let simulation = Simulation()
+            simulation.generateSuperHumanIntelligence()
         }
     }
 }

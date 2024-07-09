@@ -9,6 +9,11 @@ import Foundation
 
 class Neuron {
     
+    enum NeuronIndex {
+        case input
+        case output
+        case body(Int)
+    }
     
     var inputBits = [Bit]()
     var outputBits = [Bit]()
@@ -26,5 +31,10 @@ class Neuron {
     
     var ruleIndex = 0
     var bitIndex = 0
+    
+    func clone() -> Neuron {
+        
+        return Neuron()
+    }
     
 }

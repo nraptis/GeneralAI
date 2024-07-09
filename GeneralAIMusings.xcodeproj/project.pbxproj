@@ -15,7 +15,6 @@
 		E84B82D82C2871E600551C67 /* DataStream.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82D72C2871E600551C67 /* DataStream.swift */; };
 		E84B82DA2C28723F00551C67 /* Bit.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82D92C28723F00551C67 /* Bit.swift */; };
 		E84B82DC2C28726E00551C67 /* Annotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82DB2C28726E00551C67 /* Annotation.swift */; };
-		E84B82DE2C2872BE00551C67 /* Grow.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82DD2C2872BE00551C67 /* Grow.swift */; };
 		E84B82E02C2872DF00551C67 /* Evaluator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82DF2C2872DF00551C67 /* Evaluator.swift */; };
 		E84B82E22C2872FE00551C67 /* Evaluation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E12C2872FE00551C67 /* Evaluation.swift */; };
 		E84B82E42C28756E00551C67 /* Byte.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E32C28756E00551C67 /* Byte.swift */; };
@@ -23,6 +22,8 @@
 		E84B82E82C287D0500551C67 /* Neuron.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E72C287D0500551C67 /* Neuron.swift */; };
 		E84B82EA2C2881B700551C67 /* Rule.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82E92C2881B700551C67 /* Rule.swift */; };
 		E866E5372C3C223F009D5BD9 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = E866E5362C3C223F009D5BD9 /* README.md */; };
+		E8AD07B52C3D11EC00B88A55 /* Axon.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AD07B42C3D11EC00B88A55 /* Axon.swift */; };
+		E8AD07B72C3D131300B88A55 /* VerySimplestTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8AD07B62C3D131300B88A55 /* VerySimplestTest.swift */; };
 		E8DFDB942C3C330300C3C072 /* Simulation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFDB932C3C330300C3C072 /* Simulation.swift */; };
 		E8DFDB962C3C353700C3C072 /* Population.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8DFDB952C3C353700C3C072 /* Population.swift */; };
 /* End PBXBuildFile section */
@@ -38,7 +39,6 @@
 		E84B82D72C2871E600551C67 /* DataStream.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataStream.swift; sourceTree = "<group>"; };
 		E84B82D92C28723F00551C67 /* Bit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bit.swift; sourceTree = "<group>"; };
 		E84B82DB2C28726E00551C67 /* Annotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Annotation.swift; sourceTree = "<group>"; };
-		E84B82DD2C2872BE00551C67 /* Grow.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Grow.swift; sourceTree = "<group>"; };
 		E84B82DF2C2872DF00551C67 /* Evaluator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluator.swift; sourceTree = "<group>"; };
 		E84B82E12C2872FE00551C67 /* Evaluation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Evaluation.swift; sourceTree = "<group>"; };
 		E84B82E32C28756E00551C67 /* Byte.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Byte.swift; sourceTree = "<group>"; };
@@ -46,6 +46,8 @@
 		E84B82E72C287D0500551C67 /* Neuron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Neuron.swift; sourceTree = "<group>"; };
 		E84B82E92C2881B700551C67 /* Rule.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Rule.swift; sourceTree = "<group>"; };
 		E866E5362C3C223F009D5BD9 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
+		E8AD07B42C3D11EC00B88A55 /* Axon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Axon.swift; sourceTree = "<group>"; };
+		E8AD07B62C3D131300B88A55 /* VerySimplestTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VerySimplestTest.swift; sourceTree = "<group>"; };
 		E8DFDB932C3C330300C3C072 /* Simulation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Simulation.swift; sourceTree = "<group>"; };
 		E8DFDB952C3C353700C3C072 /* Population.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Population.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -86,11 +88,10 @@
 				E84B82CA2C286B7D00551C67 /* Assets.xcassets */,
 				E84B82CF2C286B7D00551C67 /* GeneralAIMusings.entitlements */,
 				E84B82CC2C286B7D00551C67 /* Preview Content */,
-				E84B82D52C28719200551C67 /* Brain.swift */,
 				E84B82D72C2871E600551C67 /* DataStream.swift */,
+				E84B82D52C28719200551C67 /* Brain.swift */,
 				E84B82D92C28723F00551C67 /* Bit.swift */,
 				E84B82DB2C28726E00551C67 /* Annotation.swift */,
-				E84B82DD2C2872BE00551C67 /* Grow.swift */,
 				E84B82DF2C2872DF00551C67 /* Evaluator.swift */,
 				E84B82E12C2872FE00551C67 /* Evaluation.swift */,
 				E84B82E32C28756E00551C67 /* Byte.swift */,
@@ -99,6 +100,8 @@
 				E84B82E92C2881B700551C67 /* Rule.swift */,
 				E8DFDB932C3C330300C3C072 /* Simulation.swift */,
 				E8DFDB952C3C353700C3C072 /* Population.swift */,
+				E8AD07B42C3D11EC00B88A55 /* Axon.swift */,
+				E8AD07B62C3D131300B88A55 /* VerySimplestTest.swift */,
 			);
 			path = GeneralAIMusings;
 			sourceTree = "<group>";
@@ -190,9 +193,10 @@
 				E84B82D62C28719200551C67 /* Brain.swift in Sources */,
 				E84B82DC2C28726E00551C67 /* Annotation.swift in Sources */,
 				E84B82E02C2872DF00551C67 /* Evaluator.swift in Sources */,
-				E84B82DE2C2872BE00551C67 /* Grow.swift in Sources */,
 				E8DFDB962C3C353700C3C072 /* Population.swift in Sources */,
 				E84B82C72C286B7B00551C67 /* GeneralAIMusingsApp.swift in Sources */,
+				E8AD07B52C3D11EC00B88A55 /* Axon.swift in Sources */,
+				E8AD07B72C3D131300B88A55 /* VerySimplestTest.swift in Sources */,
 				E84B82E42C28756E00551C67 /* Byte.swift in Sources */,
 				E84B82EA2C2881B700551C67 /* Rule.swift in Sources */,
 				E84B82E82C287D0500551C67 /* Neuron.swift in Sources */,
