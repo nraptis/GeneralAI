@@ -37,4 +37,16 @@ class Neuron {
         return Neuron()
     }
     
+    func appendByteToInput(byte: Byte) {
+        inputBits.append(byte.bit0)
+        inputBits.append(byte.bit1)
+        inputBits.append(byte.bit2)
+        inputBits.append(byte.bit3)
+        
+        inputBits.append(byte.bit4)
+        inputBits.append(byte.bit5)
+        inputBits.append(byte.bit6)
+        inputBits.append(byte.bit7)
+    }
+    
 }
