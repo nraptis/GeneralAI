@@ -37,3 +37,15 @@ import Foundation
         return output
     }
 }
+
+extension Rule {
+    static var random: Rule {
+        let choice = Int.random(in: 0...5)
+        if choice == 0 { return .dupe }
+        else if choice == 0 { return .remove }
+        else if choice == 0 { return .copy }
+        else if choice == 0 { return .invert }
+        else if choice == 0 { return .one }
+        else { return .zero }
+    }
+}
