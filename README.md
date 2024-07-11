@@ -10,8 +10,22 @@ The idea is this:</br>
 3.) A generalized AI is initially seeded by a human-directed fitness function.</br>
 4.) A generalized AI will eventually be evolved from a "population" of AI's (we call them "Brain").</br>
 5.) A generalized AI can be built from simple constituent parts.</br></br>
-The shell of the program is remarkably simple. This is the exact shell, it doesn't need to change.</br>
+
+It is intentional that I keep the brain as alien as possible;</br>
+Similar to the animal brain, it has neurons and axons;</br>
+However, the brain is ALL MACHINE... and ALL ALIEN... Meaning that it doesn't</br>
+"Think like a human" at all... For example, it operates only on bits and rules...</br>
+There is no concept of a byte... There is no concept of arithmetic...</br>
+Through the genetic algorithm, the brain will LEARN the concepts of bytes and arithmetic...</br>
+Similar to natural selection, we will only verify the quality of the brain's output...</br>
+For the brain to exceed human intelligence, it cannot play by human rules... It must EVOLVE...!!!</br></br></br>
+The way I invision this actually working is to eventually evolve up "brain pieces", and possibly have the brain able</br>
+to brew "brain pieces" by itself. Then, through the random wiring, wire together these larger pieces. The</br>
+larger pieces would still be "Neuron" but there would be many sub-Neurons and sub-Axons...
+</br></br>
+The shell of the program is remarkably simple. This is the exact shell, it doesn't need to change.</br></br>
 </br>
+
 ```
 func generateSuperHumanIntelligence() {
     

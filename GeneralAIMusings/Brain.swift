@@ -92,7 +92,6 @@ class Brain {
             neuron.outputBits.removeAll(keepingCapacity: true)
         }
         
-        
         for axon in axons {
             let neuronA = getNeuron(at: axon.neuronIndexA)
             let neuronB = getNeuron(at: axon.neuronIndexB)
@@ -157,17 +156,30 @@ class Brain {
             }
             
             // Now we do the round robit distribution...
-            // So, output bits
-            //     matches to
-            //     connections...
-            //     And becomes INPUT bits for
-            //     the con...
-            // TODO...
+            // So the data zips all around in the brain...
+            
+            for neuron in neuronList {
+                if (neuron.outputBits.count > 0) && (neuron.connections.count > 0) {
+                    
+                    var connectionIndex = 0
+                    for bit in neuron.outputBits {
+                        
+                        let connection = neuron.connections[connectionIndex]
+                        connection.inputBits.append(bit)
+                        
+                        connectionIndex += 1
+                        if connectionIndex == neuron.connections.count {
+                            connectionIndex = 0
+                        }
+                    }
+                }
+            }
+            
             
             loopIndex += 1
         }
         
-        var result = DataStream()
+        let result = DataStream()
         
         var resultBitIndex = 0
         while resultBitIndex < outputNeuron.outputBits.count {
