@@ -27,11 +27,79 @@ class Brain {
     }
     
     func breed(mate: Brain) -> Brain {
-        return Brain()
+        fatalError("Not included.")
+    }
+    
+    func getNeuronCount() -> Int {
+        return 1 + 1 + neurons.count
+    }
+    
+    func getRuleCount() -> Int {
+        
+        var result = 0
+        result += inputNeuron.getRuleCount()
+        result += outputNeuron.getRuleCount()
+        neurons.forEach {
+            result += $0.getRuleCount()
+        }
+        return result
     }
     
     func mutate() -> Brain {
-        return Brain()
+        let result = Brain()
+        result.inputNeuron = inputNeuron.mutate()
+        
+        let random_0_100 = Int.random(in: 0...100)
+        
+        var numberOfRulesToInsertAtHead = 0
+        var numberOfRulesToInsertAtTail = 0
+        var isPunctuatedEquilibrium = false
+        
+        if random_0_100 >= 90 {
+            
+            //
+            // Puntuated Equilibrium
+            // More Evoluton
+            //
+            isPunctuatedEquilibrium = true
+            
+            numberOfRulesToInsertAtHead = Int.random(in: 0...10)
+            numberOfRulesToInsertAtTail = Int.random(in: 0...10)
+            
+        } else {
+            if Int.random(in: 0...10) == 0 {
+                numberOfRulesToInsertAtHead = Int.random(in: 0...2)
+            }
+            if Int.random(in: 0...10) == 0 {
+                numberOfRulesToInsertAtTail = Int.random(in: 0...2)
+            }
+        }
+        
+        for _ in 0..<numberOfRulesToInsertAtHead {
+            result.neurons.append(Neuron().mutate())
+        }
+        
+        for neuron in neurons {
+            let mutationAction = Neuron.getMutationAction(isPunctuatedEquilibrium: isPunctuatedEquilibrium)
+            switch mutationAction {
+            case .none:
+                result.neurons.append(neuron.clone())
+            case .insert:
+                result.neurons.append(neuron.clone())
+                result.neurons.append(Neuron().mutate())
+            case .delete:
+                break
+            case .replace:
+                result.neurons.append(Neuron().mutate())
+            }
+        }
+        
+        for _ in 0..<numberOfRulesToInsertAtTail {
+            result.neurons.append(Neuron().mutate())
+        }
+        
+        result.outputNeuron = outputNeuron.mutate()
+        return result
     }
     
     func removeNeuron(at index: Int) {

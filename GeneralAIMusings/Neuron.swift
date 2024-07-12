@@ -9,6 +9,38 @@ import Foundation
 
 class Neuron {
     
+    enum MutationAction {
+        case none
+        case insert
+        case delete
+        case replace
+    }
+    
+    static func getMutationAction(isPunctuatedEquilibrium: Bool) -> MutationAction {
+        var randomNumber = Int.random(in: 0...99)
+        if isPunctuatedEquilibrium {
+            if randomNumber < 10 {
+                return .insert
+            } else if randomNumber < 20 {
+                return .delete
+            } else if randomNumber < 30 {
+                return .replace
+            } else {
+                return .none
+            }
+        } else {
+            if randomNumber < 2 {
+                return .insert
+            } else if randomNumber < 4 {
+                return .delete
+            } else if randomNumber < 6 {
+                return .replace
+            } else {
+                return .none
+            }
+        }
+    }
+    
     enum NeuronIndex {
         case input
         case output
@@ -20,13 +52,6 @@ class Neuron {
     
     var rules = [Rule]()
     
-    /*
-    func process() -> [Bit] {
-        var result = [Bit]()
-        return result
-    }
-    */
-    
     var connections = [Neuron]()
     
     var ruleIndex = 0
@@ -37,6 +62,10 @@ class Neuron {
         return Neuron()
     }
     
+    func getRuleCount() -> Int {
+        return rules.count
+    }
+    
     func mutate() -> Neuron {
         
         let result = Neuron()
@@ -45,6 +74,7 @@ class Neuron {
         
         var numberOfRulesToInsertAtHead = 0
         var numberOfRulesToInsertAtTail = 0
+        var isPunctuatedEquilibrium = false
         
         if random_0_100 >= 90 {
             
@@ -52,6 +82,7 @@ class Neuron {
             // Puntuated Equilibrium
             // More Evoluton
             //
+            isPunctuatedEquilibrium = true
             
             numberOfRulesToInsertAtHead = Int.random(in: 0...25)
             numberOfRulesToInsertAtTail = Int.random(in: 0...25)
@@ -68,17 +99,20 @@ class Neuron {
         }
         
         for _ in 0..<numberOfRulesToInsertAtHead {
-            result.rules.append(Rule.remove)
+            result.rules.append(Rule.random)
         }
         
         for rule in rules {
-            // 1/26 deletion chance...
-            if Int.random(in: 0...25) != 5 {
+            let mutationAction = Self.getMutationAction(isPunctuatedEquilibrium: isPunctuatedEquilibrium)
+            switch mutationAction {
+            case .none:
                 result.rules.append(rule)
-            }
-            
-            // 1/26 insertion chance...
-            if Int.random(in: 0...25) != 5 {
+            case .insert:
+                result.rules.append(rule)
+                result.rules.append(Rule.random)
+            case .delete:
+                break
+            case .replace:
                 result.rules.append(Rule.random)
             }
         }

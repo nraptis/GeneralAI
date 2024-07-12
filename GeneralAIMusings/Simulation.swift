@@ -9,6 +9,7 @@ import Foundation
 
 class Simulation {
     
+    var iteration = 0
     
     func generateSuperHumanIntelligence() {
         
@@ -40,6 +41,8 @@ class Simulation {
             
             // Every time, save the result. [A1]
             population.save()
+            
+            iteration += 1
         }
     }
     
@@ -82,14 +85,49 @@ class Simulation {
             breedingPopulation.brains.append(brain.clone())
         }
         
+        
+        
         // Interbreed the population members until we reach [count] * 2.
         while breedingPopulation.brains.count < (count * 2) {
             
-            let brain1 = population.brains.randomElement()!
-            let brain2 = population.brains.randomElement()!
+            // For now, we will just mutate, not evolve.
             
-            let combinedBrain = brain1.breed(mate: brain2)
-            breedingPopulation.brains.append(combinedBrain)
+            let brain = population.brains.randomElement()!
+            breedingPopulation.brains.append(brain.mutate())
+        }
+        
+        
+        if (iteration % 10) == 0 {
+            
+            var mostRules = 0
+            var leastRules = 100_000_000_000
+            
+            var mostNeurons = 0
+            var leastNeurons = 100_000_000_000
+            
+            for brain in breedingPopulation.brains {
+                let ruleCount = brain.getRuleCount()
+                if ruleCount > mostRules {
+                    mostRules = ruleCount
+                }
+                if ruleCount < leastRules {
+                    leastRules = ruleCount
+                }
+                
+                let neuronCount = brain.getNeuronCount()
+                if neuronCount > mostNeurons {
+                    mostNeurons = neuronCount
+                }
+                if neuronCount < leastNeurons {
+                    leastNeurons = neuronCount
+                }
+            }
+            
+            print("@ \(iteration) - We have \(breedingPopulation.brains.count) brains")
+            print("@ \(iteration) - We \(mostNeurons) as the highest number of neurons")
+            print("@ \(iteration) - We \(leastNeurons) as the lowest number of neurons")
+            print("@ \(iteration) - We \(mostRules) as the highest number of rules")
+            print("@ \(iteration) - We \(leastRules) as the lowest number of rules")
         }
         
         return breedingPopulation
