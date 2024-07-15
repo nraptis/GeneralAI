@@ -41,6 +41,37 @@ class Byte {
         result.bit7 = bit7.clone()
         return result
     }
+    
+    var uint8: UInt8 {
+        let bit0: UInt8 = (self.bit0.value ? 1 : 0) << 0
+        let bit1: UInt8 = (self.bit1.value ? 1 : 0) << 1
+        let bit2: UInt8 = (self.bit2.value ? 1 : 0) << 2
+        let bit3: UInt8 = (self.bit3.value ? 1 : 0) << 3
+        let bit4: UInt8 = (self.bit4.value ? 1 : 0) << 4
+        let bit5: UInt8 = (self.bit5.value ? 1 : 0) << 5
+        let bit6: UInt8 = (self.bit6.value ? 1 : 0) << 6
+        let bit7: UInt8 = (self.bit7.value ? 1 : 0) << 7
+        var result = UInt8(0)
+        result |= bit0
+        result |= bit1
+        result |= bit2
+        result |= bit3
+        result |= bit4
+        result |= bit5
+        result |= bit6
+        result |= bit7
+        return result
+    }
+    
+    var unicodeScalar: UnicodeScalar {
+        let value = self.uint8
+        return UnicodeScalar(value)
+    }
+    
+    var string: String {
+        String(unicodeScalar)
+    }
+    
 }
 
 extension Byte: Equatable {

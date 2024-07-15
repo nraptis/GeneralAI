@@ -32,4 +32,13 @@ class DataStream {
         return placeholderBit
     }
     
+    
+    var string: String {
+        bytes.map { $0.string }.joined()
+    }
+    
+    var uint8s: [UInt8] {
+        bytes.map { $0.uint8 }
+    }
+   
 }

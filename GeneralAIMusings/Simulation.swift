@@ -16,6 +16,14 @@ class Simulation {
         // The evaluator computes the fitness level of a "Brain..."
         let evaluator = Evaluator()
         
+        for trial in evaluator.trials {
+            let input = trial.input.string
+            let output = trial.expectedOutput.string
+            
+            print("Trial: [\(input)] => [\(output)]")
+            
+        }
+        
         // The population of AI brains...
         var population = Population()
         
@@ -28,16 +36,16 @@ class Simulation {
             // 1.) Mutate the population members until we reach [count].
             
             population = growAndEvolve_Step1(population: population,
-                                             count: 10_000)
+                                             count: 100)
             
             // 2.) Interbreed the population members until we reach [count] * 2.
             population = growAndEvolve_Step2(population: population,
-                                             count: 10_000)
+                                             count: 100)
             
             // 3.) Evaluate the fitness of the breeding population and keep best [count].
             population = growAndEvolve_Step3(population: population,
                                              evaluator: evaluator,
-                                             count: 10_000)
+                                             count: 100)
             
             // Every time, save the result. [A1]
             population.save()

@@ -20,8 +20,7 @@ class Brain {
     
     func evolve() {
         
-        
-        pulseCount = 100
+        pulseCount = 1000
         //+= Int.random(in: -5...5)
         
     }

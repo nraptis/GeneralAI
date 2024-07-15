@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E82366E42C45996300E64005 /* Trial.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82366E32C45996300E64005 /* Trial.swift */; };
+		E82366E62C45998200E64005 /* Trial_OnePlusOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82366E52C45998200E64005 /* Trial_OnePlusOne.swift */; };
 		E84B82C72C286B7B00551C67 /* GeneralAIMusingsApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82C62C286B7B00551C67 /* GeneralAIMusingsApp.swift */; };
 		E84B82C92C286B7B00551C67 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = E84B82C82C286B7B00551C67 /* ContentView.swift */; };
 		E84B82CB2C286B7D00551C67 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E84B82CA2C286B7D00551C67 /* Assets.xcassets */; };
@@ -29,6 +31,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E82366E32C45996300E64005 /* Trial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trial.swift; sourceTree = "<group>"; };
+		E82366E52C45998200E64005 /* Trial_OnePlusOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trial_OnePlusOne.swift; sourceTree = "<group>"; };
 		E84B82C32C286B7B00551C67 /* GeneralAIMusings.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeneralAIMusings.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E84B82C62C286B7B00551C67 /* GeneralAIMusingsApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAIMusingsApp.swift; sourceTree = "<group>"; };
 		E84B82C82C286B7B00551C67 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -102,6 +106,8 @@
 				E8DFDB952C3C353700C3C072 /* Population.swift */,
 				E8AD07B42C3D11EC00B88A55 /* Axon.swift */,
 				E8AD07B62C3D131300B88A55 /* VerySimplestTest.swift */,
+				E82366E32C45996300E64005 /* Trial.swift */,
+				E82366E52C45998200E64005 /* Trial_OnePlusOne.swift */,
 			);
 			path = GeneralAIMusings;
 			sourceTree = "<group>";
@@ -195,11 +201,13 @@
 				E84B82E02C2872DF00551C67 /* Evaluator.swift in Sources */,
 				E8DFDB962C3C353700C3C072 /* Population.swift in Sources */,
 				E84B82C72C286B7B00551C67 /* GeneralAIMusingsApp.swift in Sources */,
+				E82366E42C45996300E64005 /* Trial.swift in Sources */,
 				E8AD07B52C3D11EC00B88A55 /* Axon.swift in Sources */,
 				E8AD07B72C3D131300B88A55 /* VerySimplestTest.swift in Sources */,
 				E84B82E42C28756E00551C67 /* Byte.swift in Sources */,
 				E84B82EA2C2881B700551C67 /* Rule.swift in Sources */,
 				E84B82E82C287D0500551C67 /* Neuron.swift in Sources */,
+				E82366E62C45998200E64005 /* Trial_OnePlusOne.swift in Sources */,
 				E84B82E62C28790000551C67 /* EvaluationResult.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
