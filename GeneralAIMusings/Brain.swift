@@ -18,17 +18,6 @@ class Brain {
     
     var outputBits = [Bit]()
     
-    func evolve() {
-        
-        pulseCount = 1000
-        //+= Int.random(in: -5...5)
-        
-    }
-    
-    func breed(mate: Brain) -> Brain {
-        fatalError("Not included.")
-    }
-    
     func getNeuronCount() -> Int {
         return 1 + 1 + neurons.count
     }
@@ -48,22 +37,32 @@ class Brain {
         let result = Brain()
         result.inputNeuron = inputNeuron.mutate()
         
+        
+        pulseCount = Int.random(in: 80...300)
+        
         let random_0_100 = Int.random(in: 0...100)
         
         var numberOfRulesToInsertAtHead = 0
         var numberOfRulesToInsertAtTail = 0
+        var numberOfAxonsToInsertAtHead = 0
+        var numberOfAxonsToInsertAtTail = 0
+        
         var isPunctuatedEquilibrium = false
         
         if random_0_100 >= 90 {
-            
             //
             // Puntuated Equilibrium
             // More Evoluton
             //
             isPunctuatedEquilibrium = true
-            
+        }
+        
+        if isPunctuatedEquilibrium {
             numberOfRulesToInsertAtHead = Int.random(in: 0...10)
             numberOfRulesToInsertAtTail = Int.random(in: 0...10)
+            
+            numberOfAxonsToInsertAtHead = Int.random(in: 0...10)
+            numberOfAxonsToInsertAtTail = Int.random(in: 0...10)
             
         } else {
             if Int.random(in: 0...10) == 0 {
@@ -71,6 +70,12 @@ class Brain {
             }
             if Int.random(in: 0...10) == 0 {
                 numberOfRulesToInsertAtTail = Int.random(in: 0...2)
+            }
+            if Int.random(in: 0...10) == 0 {
+                numberOfAxonsToInsertAtHead = Int.random(in: 0...5)
+            }
+            if Int.random(in: 0...10) == 0 {
+                numberOfAxonsToInsertAtTail = Int.random(in: 0...5)
             }
         }
         
@@ -95,6 +100,26 @@ class Brain {
         
         for _ in 0..<numberOfRulesToInsertAtTail {
             result.neurons.append(Neuron().mutate())
+        }
+        
+        for _ in 0..<numberOfAxonsToInsertAtHead {
+            result.axons.append(Axon.random(neuronCount: result.neurons.count))
+        }
+        
+        for axon in axons {
+            let mutationAction = Neuron.getMutationAction(isPunctuatedEquilibrium: isPunctuatedEquilibrium)
+            switch mutationAction {
+            case .none:
+                //TODO: We should shift this neuron.
+                result.axons.append(axon.clone())
+            case .insert:
+                result.axons.append(axon.clone())
+                result.axons.append(Axon.random(neuronCount: result.neurons.count))
+            case .delete:
+                break
+            case .replace:
+                result.axons.append(Axon.random(neuronCount: result.neurons.count))
+            }
         }
         
         result.outputNeuron = outputNeuron.mutate()
@@ -138,8 +163,7 @@ class Brain {
         }
     }
     
-    func process(dataStream: DataStream) -> DataStream {
-        
+    func process_step_0() {
         outputBits.removeAll(keepingCapacity: true)
         
         // Very high level description of how this would work:
@@ -172,6 +196,11 @@ class Brain {
                 neuronB.connections.append(neuronA)
             }
         }
+    }
+    
+    func process(dataStream: DataStream) -> DataStream {
+        
+        process_step_0()
         
         // 2.) Load up the input neuron's "inputBits" with
         //     all the bits from the data stream.

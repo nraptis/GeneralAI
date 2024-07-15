@@ -13,6 +13,9 @@ class Simulation {
     
     func generateSuperHumanIntelligence() {
         
+        
+        /*
+        
         // The evaluator computes the fitness level of a "Brain..."
         let evaluator = Evaluator()
         
@@ -52,6 +55,7 @@ class Simulation {
             
             iteration += 1
         }
+        */
     }
     
     func growAndEvolve_Step1(population: Population, count: Int) -> Population {

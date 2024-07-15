@@ -13,18 +13,22 @@ class Evaluator {
     
     func evaluate(brain: Brain) -> Evaluation {
         
-        var allEvaluations = [Evaluation]()
-        for trial in trials {
+        if (brain.neurons.count > 0) || (brain.axons.count > 0) {
+            var allEvaluations = [Evaluation]()
+            for trial in trials {
+                
+                let result = brain.process(dataStream: trial.input)
+                let evaluation = evaluate(dataStreamInput: trial.input, dataStreamOutput: trial.expectedOutput)
+                
+                print("Trial [\(trial.input.string)] => [\(result.string)], \(evaluation) (Brain had \(brain.neurons.count) neurons and \(brain.axons.count) axons")
+            }
             
-            let result = brain.process(dataStream: trial.input)
-            let evaluation = evaluate(dataStreamInput: trial.input, dataStreamOutput: trial.expectedOutput)
-            
-            print("Trial [\(trial.input.string)] => [\(result.string)], \(evaluation)")
+            if allEvaluations.count > 0 {
+                return allEvaluations[0]
+            }
         }
         
-        if allEvaluations.count > 0 {
-            return allEvaluations[0]
-        }
+        
         
         return .feasible(.high)
     }
