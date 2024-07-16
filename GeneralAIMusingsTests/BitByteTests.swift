@@ -115,9 +115,7 @@ final class BitByteTests: XCTestCase {
     }
     
     func testEqualsAllCases() {
-        
         for outerIndex in 0...255 {
-            
             let value0 = UInt8(outerIndex)
             let byte0 = Byte(uint8: value0)
             for innerIndex in 0...255 {

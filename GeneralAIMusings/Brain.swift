@@ -18,6 +18,8 @@ class Brain {
     
     var outputBits = [Bit]()
     
+    var processNeuronList = [Neuron]()
+    
     func getNeuronCount() -> Int {
         return 1 + 1 + neurons.count
     }
@@ -204,30 +206,38 @@ class Brain {
         }
     }
     
+    func process_step_2() {
+        
+        processNeuronList.removeAll(keepingCapacity: true)
+        
+        processNeuronList.append(inputNeuron)
+        processNeuronList.append(contentsOf: neurons)
+        processNeuronList.append(outputNeuron)
+        
+        for index in processNeuronList.indices {
+            processNeuronList[index].index = index
+        }
+    }
+    
     func process(dataStream: DataStream) -> DataStream {
         
         process_step_0()
         
-        // 2.) Load up the input neuron's "inputBits" with
-        //     all the bits from the data stream.
+        process_step_1(dataStream: dataStream)
         
-        
-        
-        var neuronList = [inputNeuron]
-        neuronList.append(contentsOf: neurons)
-        neuronList.append(outputNeuron)
+        process_step_2()
         
         // 3.) Do N number of pulses... On each pulse, we do these:
         var loopIndex = 0
         while loopIndex < pulseCount {
             
             // Clear all the outputbits...
-            for neuron in neuronList {
+            for neuron in processNeuronList {
                 neuron.outputBits.removeAll(keepingCapacity: true)
             }
             
             //     a.) For each neuron (in order)
-            for neuron in neuronList {
+            for neuron in processNeuronList {
                 //       i.) For each input bit, paired with corresponding rule
                 if neuron.inputBits.count > 0 && neuron.rules.count > 0 {
                     var bitIndex = 0
@@ -251,14 +261,14 @@ class Brain {
             }
             
             // Clear all the inputbits...
-            for neuron in neuronList {
+            for neuron in processNeuronList {
                 neuron.inputBits.removeAll(keepingCapacity: true)
             }
             
             // Now we do the round robit distribution...
             // So the data zips all around in the brain...
             
-            for neuron in neuronList {
+            for neuron in processNeuronList {
                 if (neuron.outputBits.count > 0) && (neuron.connections.count > 0) {
                     
                     var connectionIndex = 0

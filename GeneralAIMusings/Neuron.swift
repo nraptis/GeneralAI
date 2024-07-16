@@ -57,6 +57,8 @@ class Neuron {
     var ruleIndex = 0
     var bitIndex = 0
     
+    var index = 0
+    
     func clone() -> Neuron {
         
         return Neuron()

@@ -59,7 +59,7 @@ final class GeneralAIMusingsTests: XCTestCase {
         }
     }
     
-    func testStepOne_A() {
+    func testStepOne_OneByte() {
         
         let brain = Brain()
         
@@ -90,4 +90,123 @@ final class GeneralAIMusingsTests: XCTestCase {
             }
         }
     }
+    
+    func testStepOne_TwoBytes() {
+        
+        let brain = Brain()
+        
+        let dataStream = DataStream()
+        dataStream.bytes.append(Byte(uint8: 7))
+        dataStream.bytes.append(Byte(uint8: 56))
+        
+        brain.process_step_1(dataStream: dataStream)
+        
+        if brain.inputNeuron.inputBits.count != 16 {
+            XCTFail("Expected 16 bits on neuron")
+            return
+        }
+        
+        for i in 0...2 {
+            if brain.inputNeuron.inputBits[i].value != true {
+                XCTFail("testStepOne:: expected neuron input bit \(i) to have true")
+                return
+            }
+        }
+        
+        for i in 3...10 {
+            if brain.inputNeuron.inputBits[i].value != false {
+                XCTFail("testStepOne:: expected neuron input bit \(i) to have false")
+                return
+            }
+        }
+        
+        for i in 11...13 {
+            if brain.inputNeuron.inputBits[i].value != true {
+                XCTFail("testStepOne:: expected neuron input bit \(i) to have true")
+                return
+            }
+        }
+        
+        for i in 14...15 {
+            if brain.inputNeuron.inputBits[i].value != false {
+                XCTFail("testStepOne:: expected neuron input bit \(i) to have false")
+                return
+            }
+        }
+    }
+    
+    func testStepTwo_NoNeurons() {
+        let brain = Brain()
+        brain.process_step_2()
+        
+        if brain.processNeuronList.count != 2 {
+            XCTFail("testStepTwo:: expected processNeuronList count to be 2")
+            return
+        }
+        
+        if brain.inputNeuron.index != 0 {
+            XCTFail("testStepTwo:: expected inputNeuron index to be 0")
+            return
+        }
+        
+        if brain.inputNeuron !== brain.processNeuronList[0] {
+            XCTFail("testStepTwo:: expected inputNeuron to be processNeuronList[0]")
+            return
+        }
+        
+        if brain.outputNeuron.index != 1 {
+            XCTFail("testStepTwo:: expected outputNeuron index to be 1")
+            return
+        }
+        
+        if brain.outputNeuron !== brain.processNeuronList[1] {
+            XCTFail("testStepTwo:: expected outputNeuron to be processNeuronList[1]")
+            return
+        }
+    }
+    
+    func testStepTwo_OneNeurons() {
+        let brain = Brain()
+        let neuron = Neuron()
+        
+        brain.neurons.append(neuron)
+        
+        brain.process_step_2()
+        
+        if brain.processNeuronList.count != 3 {
+            XCTFail("testStepTwo:: expected processNeuronList count to be 3")
+            return
+        }
+        
+        if brain.inputNeuron.index != 0 {
+            XCTFail("testStepTwo:: expected inputNeuron index to be 0")
+            return
+        }
+        
+        if brain.inputNeuron !== brain.processNeuronList[0] {
+            XCTFail("testStepTwo:: expected inputNeuron to be processNeuronList[0]")
+            return
+        }
+        
+        if neuron.index != 1 {
+            XCTFail("testStepTwo:: expected neuron index to be 1")
+            return
+        }
+        
+        if neuron !== brain.processNeuronList[1] {
+            XCTFail("testStepTwo:: expected neuron to be processNeuronList[21]")
+            return
+        }
+        
+        if brain.outputNeuron.index != 2 {
+            XCTFail("testStepTwo:: expected outputNeuron index to be 2")
+            return
+        }
+        
+        if brain.outputNeuron !== brain.processNeuronList[2] {
+            XCTFail("testStepTwo:: expected outputNeuron to be processNeuronList[2]")
+            return
+        }
+    }
+    
 }
