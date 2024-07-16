@@ -18,6 +18,21 @@ class Byte {
     var bit6 = Bit()
     var bit7 = Bit()
     
+    init() {
+        
+    }
+    
+    init(uint8: UInt8) {
+        bit0.value = (((uint8 >> 0) & 1) == 1) ? true : false
+        bit1.value = (((uint8 >> 1) & 1) == 1) ? true : false
+        bit2.value = (((uint8 >> 2) & 1) == 1) ? true : false
+        bit3.value = (((uint8 >> 3) & 1) == 1) ? true : false
+        bit4.value = (((uint8 >> 4) & 1) == 1) ? true : false
+        bit5.value = (((uint8 >> 5) & 1) == 1) ? true : false
+        bit6.value = (((uint8 >> 6) & 1) == 1) ? true : false
+        bit7.value = (((uint8 >> 7) & 1) == 1) ? true : false
+    }
+    
     func getBit(at index: Int) -> Bit {
         if index == 1 { return bit1 }
         if index == 2 { return bit2 }
@@ -70,6 +85,29 @@ class Byte {
     
     var string: String {
         String(unicodeScalar)
+    }
+    
+    func equals(uint8: UInt8) -> Bool {
+        
+        let value0 = (((uint8 >> 0) & 1) == 1) ? true : false
+        let value1 = (((uint8 >> 1) & 1) == 1) ? true : false
+        let value2 = (((uint8 >> 2) & 1) == 1) ? true : false
+        let value3 = (((uint8 >> 3) & 1) == 1) ? true : false
+        let value4 = (((uint8 >> 4) & 1) == 1) ? true : false
+        let value5 = (((uint8 >> 5) & 1) == 1) ? true : false
+        let value6 = (((uint8 >> 6) & 1) == 1) ? true : false
+        let value7 = (((uint8 >> 7) & 1) == 1) ? true : false
+        
+        if bit0.value != value0 { return false }
+        if bit1.value != value1 { return false }
+        if bit2.value != value2 { return false }
+        if bit3.value != value3 { return false }
+        if bit4.value != value4 { return false }
+        if bit5.value != value5 { return false }
+        if bit6.value != value6 { return false }
+        if bit7.value != value7 { return false }
+
+        return true
     }
     
 }

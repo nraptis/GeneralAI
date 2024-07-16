@@ -198,6 +198,12 @@ class Brain {
         }
     }
     
+    func process_step_1(dataStream: DataStream) {
+        for byte in dataStream.bytes {
+            inputNeuron.appendByteToInput(byte: byte)
+        }
+    }
+    
     func process(dataStream: DataStream) -> DataStream {
         
         process_step_0()
@@ -205,9 +211,7 @@ class Brain {
         // 2.) Load up the input neuron's "inputBits" with
         //     all the bits from the data stream.
         
-        for byte in dataStream.bytes {
-            inputNeuron.appendByteToInput(byte: byte)
-        }
+        
         
         var neuronList = [inputNeuron]
         neuronList.append(contentsOf: neurons)
