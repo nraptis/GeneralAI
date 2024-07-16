@@ -37,11 +37,16 @@ class Brain {
     
     func mutate() -> Brain {
         let result = Brain()
-        result.inputNeuron = inputNeuron.mutate()
+        result.inputNeuron = inputNeuron.clone()
+        
+        result.axons.append(.init(neuronIndexA: .input, neuronIndexB: .output, direction: .a_to_b))
+        
+        result.inputNeuron.rules.append(.one)
+        
+        result.pulseCount = 1
         
         
-        pulseCount = Int.random(in: 80...300)
-        
+        /*
         let random_0_100 = Int.random(in: 0...100)
         
         var numberOfRulesToInsertAtHead = 0
@@ -125,6 +130,8 @@ class Brain {
         }
         
         result.outputNeuron = outputNeuron.mutate()
+        */
+        
         return result
     }
     
@@ -234,7 +241,7 @@ class Brain {
                 while bitIndex < neuron.inputBits.count {
                     
                     let bit = neuron.inputBits[bitIndex]
-                    let rule = neuron.rules[bitIndex]
+                    let rule = neuron.rules[ruleIndex]
                     
                     //         > Perform the rule on the bit, then add to output bits
                     let bitsFromApplyingRuleToBit = rule.process(bit: bit)

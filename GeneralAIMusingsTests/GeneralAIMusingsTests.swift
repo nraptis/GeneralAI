@@ -25,6 +25,7 @@ final class GeneralAIMusingsTests: XCTestCase {
         }
     }
     
+    
     func testStepZero_B() {
         
         let brain = Brain()

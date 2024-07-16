@@ -61,4 +61,5 @@ func b() {
     let output = DataStream()
     output.bytes.append(outputByte1)
     
+    
 }

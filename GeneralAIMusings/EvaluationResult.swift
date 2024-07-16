@@ -12,3 +12,4 @@ class EvaluationResult {
     var outputStream = DataStream()
     var evaluation = Evaluation.useless(.low)
 }
+

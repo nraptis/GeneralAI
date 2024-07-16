@@ -89,6 +89,7 @@ class Byte {
     
     func equals(uint8: UInt8) -> Bool {
         
+        
         let value0 = (((uint8 >> 0) & 1) == 1) ? true : false
         let value1 = (((uint8 >> 1) & 1) == 1) ? true : false
         let value2 = (((uint8 >> 2) & 1) == 1) ? true : false

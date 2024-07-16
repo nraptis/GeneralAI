@@ -62,6 +62,7 @@ class Trial_OnePlusOne: Trial {
         outputByte1.bit7.value = false
         
         expectedOutput.bytes.append(outputByte1)
+        
     }
     
     

@@ -46,6 +46,7 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
             XCTFail("testSinglePulseInputToOutput_Dupe_Zero, bytes[0] to equal 0, it didn't")
             return
         }
+        
     }
     
     func testSinglePulseInputToOutput_Dupe_One() {

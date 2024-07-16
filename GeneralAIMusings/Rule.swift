@@ -11,6 +11,7 @@ import Foundation
 // very simple. 
 
 @frozen enum Rule {
+    
     case dupe
     case remove
     case copy

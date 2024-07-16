@@ -33,6 +33,7 @@ class Axon {
              direction: direction)
     }
     
+    
     static func random(neuronCount: Int) -> Axon {
         
         let direction: AxonDirection

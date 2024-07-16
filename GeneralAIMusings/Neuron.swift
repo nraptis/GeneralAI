@@ -84,6 +84,7 @@ class Neuron {
             // Puntuated Equilibrium
             // More Evoluton
             //
+            
             isPunctuatedEquilibrium = true
             
             numberOfRulesToInsertAtHead = Int.random(in: 0...25)

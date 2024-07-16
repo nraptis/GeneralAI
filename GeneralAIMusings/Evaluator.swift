@@ -20,7 +20,9 @@ class Evaluator {
                 let result = brain.process(dataStream: trial.input)
                 let evaluation = evaluate(dataStreamInput: trial.input, dataStreamOutput: trial.expectedOutput)
                 
-                print("Trial [\(trial.input.string)] => [\(result.string)], \(evaluation) (Brain had \(brain.neurons.count) neurons and \(brain.axons.count) axons")
+                if result.bytes.count > 0 {
+                    print("Trial [\(trial.input.string)] => [\(result.bytes.map { $0.uint8 } )], \(evaluation) (Brain had \(brain.neurons.count) neurons and \(brain.axons.count) axons")
+                }
             }
             
             if allEvaluations.count > 0 {

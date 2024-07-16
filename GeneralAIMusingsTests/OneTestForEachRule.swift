@@ -11,6 +11,7 @@ import XCTest
 
 final class OneTestForEachRule: XCTestCase {
     
+    
     func testRuleDupe_Zero() {
         let brain = Brain()
         brain.process_step_2()

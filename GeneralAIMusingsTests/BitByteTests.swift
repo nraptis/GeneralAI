@@ -133,4 +133,5 @@ final class BitByteTests: XCTestCase {
             }
         }
     }
+    
 }
