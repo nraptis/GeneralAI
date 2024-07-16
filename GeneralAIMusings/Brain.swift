@@ -219,6 +219,100 @@ class Brain {
         }
     }
     
+    func pulse_step_0() {
+        // Clear all the outputbits...
+        for neuron in processNeuronList {
+            neuron.outputBits.removeAll(keepingCapacity: true)
+        }
+        
+        //     a.) For each neuron (in order)
+        for neuron in processNeuronList {
+            //       i.) For each input bit, paired with corresponding rule
+            if neuron.inputBits.count > 0 && neuron.rules.count > 0 {
+                var bitIndex = 0
+                var ruleIndex = 0
+                while bitIndex < neuron.inputBits.count {
+                    
+                    let bit = neuron.inputBits[bitIndex]
+                    let rule = neuron.rules[bitIndex]
+                    
+                    //         > Perform the rule on the bit, then add to output bits
+                    let bitsFromApplyingRuleToBit = rule.process(bit: bit)
+                    neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
+                    
+                    bitIndex += 1
+                    ruleIndex += 1
+                    if ruleIndex >= neuron.rules.count {
+                        ruleIndex = 0
+                    }
+                }
+            }
+        }
+    }
+    
+    func pulse_step_1() {
+        
+        // Clear all the inputbits...
+        for neuron in processNeuronList {
+            neuron.inputBits.removeAll(keepingCapacity: true)
+        }
+        
+        // Now we do the round robit distribution...
+        // So the data zips all around in the brain...
+        
+        for neuron in processNeuronList {
+            if (neuron.outputBits.count > 0) && (neuron.connections.count > 0) {
+                
+                var connectionIndex = 0
+                for bit in neuron.outputBits {
+                    
+                    let connection = neuron.connections[connectionIndex]
+                    connection.inputBits.append(bit)
+                    
+                    connectionIndex += 1
+                    if connectionIndex == neuron.connections.count {
+                        connectionIndex = 0
+                    }
+                }
+            }
+        }
+    }
+    
+    func process_step_3() -> DataStream {
+        let result = DataStream()
+        
+        var resultBitIndex = 0
+        while resultBitIndex < outputNeuron.inputBits.count {
+            
+            let bit0 = ((resultBitIndex + 0) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 0] : Bit()
+            let bit1 = ((resultBitIndex + 1) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 1] : Bit()
+            let bit2 = ((resultBitIndex + 2) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 2] : Bit()
+            let bit3 = ((resultBitIndex + 3) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 3] : Bit()
+            let bit4 = ((resultBitIndex + 4) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 4] : Bit()
+            let bit5 = ((resultBitIndex + 5) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 5] : Bit()
+            let bit6 = ((resultBitIndex + 6) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 6] : Bit()
+            let bit7 = ((resultBitIndex + 7) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 7] : Bit()
+            
+            let resultByte = Byte()
+            
+            resultByte.bit0 = bit0.clone()
+            resultByte.bit1 = bit1.clone()
+            resultByte.bit2 = bit2.clone()
+            resultByte.bit3 = bit3.clone()
+            
+            resultByte.bit4 = bit4.clone()
+            resultByte.bit5 = bit5.clone()
+            resultByte.bit6 = bit6.clone()
+            resultByte.bit7 = bit7.clone()
+            
+            result.bytes.append(resultByte)
+            
+            resultBitIndex += 8
+        }
+        
+        return result
+    }
+    
     func process(dataStream: DataStream) -> DataStream {
         
         process_step_0()
@@ -231,97 +325,14 @@ class Brain {
         var loopIndex = 0
         while loopIndex < pulseCount {
             
-            // Clear all the outputbits...
-            for neuron in processNeuronList {
-                neuron.outputBits.removeAll(keepingCapacity: true)
-            }
+            pulse_step_0()
             
-            //     a.) For each neuron (in order)
-            for neuron in processNeuronList {
-                //       i.) For each input bit, paired with corresponding rule
-                if neuron.inputBits.count > 0 && neuron.rules.count > 0 {
-                    var bitIndex = 0
-                    var ruleIndex = 0
-                    while bitIndex < neuron.inputBits.count {
-                        
-                        let bit = neuron.inputBits[bitIndex]
-                        let rule = neuron.rules[bitIndex]
-                        
-                        //         > Perform the rule on the bit, then add to output bits
-                        let bitsFromApplyingRuleToBit = rule.process(bit: bit)
-                        neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
-                        
-                        bitIndex += 1
-                        ruleIndex += 1
-                        if ruleIndex >= neuron.rules.count {
-                            ruleIndex = 0
-                        }
-                    }
-                }
-            }
-            
-            // Clear all the inputbits...
-            for neuron in processNeuronList {
-                neuron.inputBits.removeAll(keepingCapacity: true)
-            }
-            
-            // Now we do the round robit distribution...
-            // So the data zips all around in the brain...
-            
-            for neuron in processNeuronList {
-                if (neuron.outputBits.count > 0) && (neuron.connections.count > 0) {
-                    
-                    var connectionIndex = 0
-                    for bit in neuron.outputBits {
-                        
-                        let connection = neuron.connections[connectionIndex]
-                        connection.inputBits.append(bit)
-                        
-                        connectionIndex += 1
-                        if connectionIndex == neuron.connections.count {
-                            connectionIndex = 0
-                        }
-                    }
-                }
-            }
-            
+            pulse_step_1()
             
             loopIndex += 1
         }
         
-        let result = DataStream()
-        
-        var resultBitIndex = 0
-        while resultBitIndex < outputNeuron.outputBits.count {
-            
-            let bit0 = ((resultBitIndex + 0) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 0] : Bit()
-            let bit1 = ((resultBitIndex + 1) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 1] : Bit()
-            let bit2 = ((resultBitIndex + 2) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 2] : Bit()
-            let bit3 = ((resultBitIndex + 3) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 3] : Bit()
-            
-            let bit4 = ((resultBitIndex + 4) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 4] : Bit()
-            let bit5 = ((resultBitIndex + 5) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 5] : Bit()
-            let bit6 = ((resultBitIndex + 6) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 6] : Bit()
-            let bit7 = ((resultBitIndex + 7) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 7] : Bit()
-            
-            let resultByte = Byte()
-            
-            resultByte.bit0 = bit0
-            resultByte.bit1 = bit1
-            resultByte.bit2 = bit2
-            resultByte.bit3 = bit3
-            
-            resultByte.bit4 = bit4
-            resultByte.bit5 = bit5
-            resultByte.bit6 = bit6
-            resultByte.bit7 = bit7
-            
-            result.bytes.append(resultByte)
-            
-            resultBitIndex += 8
-        }
-        
-        return result
+        return process_step_3()
     }
     
     func pulse(inputBit: Bit) {
