@@ -1,6 +1,6 @@
 # Generalized AI
 
-![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/research.png)</br></br>
+![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/1000_yard_view.jpg)</br></br>
 </br>
 Anyone is allowed to contribute to this. I will review any pull request until April 17, 2028, at which time I will re-evaluate this policy.</br></br>
 
@@ -152,3 +152,6 @@ func growAndEvolve_Step3(population: Population, evaluator: Evaluator, count: In
     return primePopulation
 }
 ```
+
+![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/research.png)</br></br>
+
