@@ -11,6 +11,8 @@ The idea is this:</br>
 4.) A generalized AI will eventually be evolved from a "population" of AI's (we call them "Brain").</br>
 5.) A generalized AI can be built from simple constituent parts.</br></br>
 
+
+
 It is intentional that I keep the brain as alien as possible;</br>
 Similar to the animal brain, it has neurons and axons;</br>
 However, the brain is ALL MACHINE... and ALL ALIEN... Meaning that it doesn't</br>
