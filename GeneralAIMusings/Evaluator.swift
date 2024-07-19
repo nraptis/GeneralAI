@@ -7,11 +7,11 @@
 
 import Foundation
 
-class Evaluator {
+class Evaluator<WordType: Wordable> {
     
     var trials = [Trial_OnePlusOne()]
     
-    func evaluate(brain: Brain) -> Evaluation {
+    func evaluate(brain: Brain<WordType>) -> Evaluation {
         
         /*
         if (brain.neurons.count > 0) || (brain.axons.count > 0) {
@@ -36,7 +36,8 @@ class Evaluator {
         return .feasible(.high)
     }
     
-    func evaluate(dataStreamInput: DataStream, dataStreamOutput: DataStream) -> Evaluation {
+    func evaluate(dataStreamInput: DataStream<WordType>,
+                  dataStreamOutput: DataStream<WordType>) -> Evaluation {
         
         /*
         let expectedByte = Byte()

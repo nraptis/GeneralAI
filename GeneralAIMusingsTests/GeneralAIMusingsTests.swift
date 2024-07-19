@@ -12,7 +12,7 @@ final class GeneralAIMusingsTests: XCTestCase {
 
     func testStepZero_A() {
         
-        let brain = Brain()
+        let brain = Brain<Word4>()
         brain.axons.append(Axon(neuronIndexA: .input,
                                 neuronIndexB: .output,
                                 direction: .a_to_b))
@@ -28,7 +28,7 @@ final class GeneralAIMusingsTests: XCTestCase {
     
     func testStepZero_B() {
         
-        let brain = Brain()
+        let brain = Brain<Word4>()
         brain.axons.append(Axon(neuronIndexA: .input,
                                 neuronIndexB: .output,
                                 direction: .b_to_a))
@@ -45,7 +45,7 @@ final class GeneralAIMusingsTests: XCTestCase {
     
     func testStepZero_C() {
         
-        let brain = Brain()
+        let brain = Brain<Word4>()
         brain.axons.append(Axon(neuronIndexA: .input,
                                 neuronIndexB: .output,
                                 direction: .both))
@@ -60,12 +60,12 @@ final class GeneralAIMusingsTests: XCTestCase {
         }
     }
     
-    func testStepOne_OneWord() {
+    func testStepOne_OneWord16() {
         
-        let brain = Brain()
+        let brain = Brain<Word16>()
         
-        let dataStream = DataStream()
-        dataStream.words.append(Word(uint16: 3))
+        let dataStream = DataStream<Word16>()
+        dataStream.words.append(Word16(value: 3))
         
         brain.process_step_1(dataStream: dataStream)
         
@@ -74,18 +74,18 @@ final class GeneralAIMusingsTests: XCTestCase {
             return
         }
         
-        if brain.inputNeuron.inputBits[0].value != true {
+        if brain.inputNeuron.inputBits[0] != true {
             XCTFail("testStepOne:: expected neuron input bit 0 to have true")
             return
         }
         
-        if brain.inputNeuron.inputBits[1].value != true {
+        if brain.inputNeuron.inputBits[1] != true {
             XCTFail("testStepOne:: expected neuron input bit 1 to have true")
             return
         }
         
         for i in 2...15 {
-            if brain.inputNeuron.inputBits[i].value != false {
+            if brain.inputNeuron.inputBits[i] != false {
                 XCTFail("testStepOne:: expected neuron input bit \(i) to have false")
                 return
             }
@@ -93,7 +93,7 @@ final class GeneralAIMusingsTests: XCTestCase {
     }
     
     func testStepTwo_NoNeurons() {
-        let brain = Brain()
+        let brain = Brain<Word16>()
         brain.process_step_2()
         
         if brain.processNeuronList.count != 2 {
@@ -123,8 +123,8 @@ final class GeneralAIMusingsTests: XCTestCase {
     }
     
     func testStepTwo_OneNeurons() {
-        let brain = Brain()
-        let neuron = Neuron()
+        let brain = Brain<Word16>()
+        let neuron = Neuron<Word16>()
         
         brain.neurons.append(neuron)
         

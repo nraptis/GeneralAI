@@ -7,18 +7,16 @@
 
 import Foundation
 
-class Brain {
+class Brain<WordType: Wordable> {
     
-    var inputNeuron = Neuron()
-    var outputNeuron = Neuron()
+    var inputNeuron = Neuron<WordType>()
+    var outputNeuron = Neuron<WordType>()
     var pulseCount = 0
     
-    var neurons = [Neuron]()
+    var neurons = [Neuron<WordType>]()
     var axons = [Axon]()
     
-    var outputBits = [Bit]()
-    
-    var processNeuronList = [Neuron]()
+    var processNeuronList = [Neuron<WordType>]()
     
     func getNeuronCount() -> Int {
         return 1 + 1 + neurons.count
@@ -35,8 +33,8 @@ class Brain {
         return result
     }
     
-    func mutate() -> Brain {
-        let result = Brain()
+    func mutate() -> Brain<WordType> {
+        let result = Brain<WordType>()
         result.inputNeuron = inputNeuron.clone()
         
         result.axons.append(.init(neuronIndexA: .input, neuronIndexB: .output, direction: .a_to_b))
@@ -141,23 +139,22 @@ class Brain {
         }
     }
     
-    func addNeuron(_ neuron: Neuron) {
+    func addNeuron(_ neuron: Neuron<WordType>) {
         neurons.append(neuron)
     }
     
-    func clone() -> Brain {
-        let result = Brain()
-        
+    func clone() -> Brain<WordType> {
+        let result = Brain<WordType>()
         
         return result
     }
     
-    func restore(brain: Brain) {
+    func restore(brain: Brain<WordType>) {
         
     }
     
-    private let placeholderNeuron = Neuron()
-    func getNeuron(at index: Neuron.NeuronIndex) -> Neuron {
+    private let placeholderNeuron = Neuron<WordType>()
+    func getNeuron(at index: NeuronIndex) -> Neuron<WordType> {
         switch index {
         case .input:
             return inputNeuron
@@ -173,7 +170,6 @@ class Brain {
     }
     
     func process_step_0() {
-        outputBits.removeAll(keepingCapacity: true)
         
         // Very high level description of how this would work:
         //
@@ -207,7 +203,7 @@ class Brain {
         }
     }
     
-    func process_step_1(dataStream: DataStream) {
+    func process_step_1(dataStream: DataStream<WordType>) {
         for word in dataStream.words {
             inputNeuron.appendWordToInput(word: word)
         }
@@ -285,58 +281,35 @@ class Brain {
         }
     }
     
-    func process_step_3() -> DataStream {
-        let result = DataStream()
+    func process_step_3() -> DataStream<WordType> {
+        let result = DataStream<WordType>()
         
         var resultBitIndex = 0
         while resultBitIndex < outputNeuron.inputBits.count {
             
-            let bit_00 = ((resultBitIndex + 0) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 0] : Bit()
-            let bit_01 = ((resultBitIndex + 1) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 1] : Bit()
-            let bit_02 = ((resultBitIndex + 2) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 2] : Bit()
-            let bit_03 = ((resultBitIndex + 3) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 3] : Bit()
-            let bit_04 = ((resultBitIndex + 4) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 4] : Bit()
-            let bit_05 = ((resultBitIndex + 5) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 5] : Bit()
-            let bit_06 = ((resultBitIndex + 6) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 6] : Bit()
-            let bit_07 = ((resultBitIndex + 7) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 7] : Bit()
+            var resultValue = UInt32(0)
             
-            let bit_08 = ((resultBitIndex + 8) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 8] : Bit()
-            let bit_09 = ((resultBitIndex + 9) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 9] : Bit()
-            let bit_10 = ((resultBitIndex + 10) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 10] : Bit()
-            let bit_11 = ((resultBitIndex + 11) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 11] : Bit()
-            let bit_12 = ((resultBitIndex + 12) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 12] : Bit()
-            let bit_13 = ((resultBitIndex + 13) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 13] : Bit()
-            let bit_14 = ((resultBitIndex + 14) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 14] : Bit()
-            let bit_15 = ((resultBitIndex + 15) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 15] : Bit()
+            var loopIndex = 0
+            while loopIndex < WordType.numberOfBits {
+                
+                if resultBitIndex < outputNeuron.inputBits.count {
+                    if outputNeuron.inputBits[resultBitIndex] {
+                        resultValue |= (1 << loopIndex)
+                    }
+                }
+                
+                resultBitIndex += 1
+                loopIndex += 1
+            }
             
-            
-            let resultWord = Word()
-            
-            resultWord.bit_00 = bit_00.clone()
-            resultWord.bit_01 = bit_01.clone()
-            resultWord.bit_02 = bit_02.clone()
-            resultWord.bit_03 = bit_03.clone()
-            resultWord.bit_04 = bit_04.clone()
-            resultWord.bit_05 = bit_05.clone()
-            resultWord.bit_06 = bit_06.clone()
-            resultWord.bit_07 = bit_07.clone()
-            
-            resultWord.bit_08 = bit_08.clone()
-            resultWord.bit_09 = bit_09.clone()
-            resultWord.bit_10 = bit_10.clone()
-            resultWord.bit_11 = bit_11.clone()
-            resultWord.bit_12 = bit_12.clone()
-            resultWord.bit_13 = bit_13.clone()
-            resultWord.bit_14 = bit_14.clone()
-            resultWord.bit_15 = bit_15.clone()
+            let resultWord = WordType(value: resultValue)
             result.words.append(resultWord)
-            resultBitIndex += 16
         }
         
         return result
     }
     
-    func process(dataStream: DataStream) -> DataStream {
+    func process(dataStream: DataStream<WordType>) -> DataStream<WordType> {
         
         process_step_0()
         
@@ -356,44 +329,5 @@ class Brain {
         }
         
         return process_step_3()
-    }
-    
-    func pulse(inputBit: Bit) {
-        
-        inputNeuron.inputBits.removeAll(keepingCapacity: true)
-        outputNeuron.inputBits.removeAll(keepingCapacity: true)
-        
-        for neuron in neurons {
-            neuron.inputBits.removeAll(keepingCapacity: true)
-        }
-        
-        inputNeuron.inputBits.append(inputBit)
-        
-        // Round robin distribution to connections...
-        
-        rrdist(neuron: inputNeuron)
-        for neuron in neurons {
-            rrdist(neuron: neuron)
-        }
-        rrdist(neuron: outputNeuron)
-        
-        outputBits.append(contentsOf: outputNeuron.outputBits)
-    }
-    
-    func rrdist(neuron: Neuron) {
-        
-        if neuron.rules.count <= 0 {
-            neuron.outputBits.removeAll(keepingCapacity: true)
-        } else {
-            
-            if neuron.inputBits.count <= 0 {
-                neuron.outputBits.removeAll(keepingCapacity: true)
-            } else {
-                
-                let ruleCount = neuron.rules.count
-                let inputBitCount = neuron.inputBits.count
-                
-            }
-        }
     }
 }

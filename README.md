@@ -82,7 +82,7 @@ func growAndEvolve_Step1(population: Population, count: Int) -> Population {
             anyBrain = randomBrain.clone()
         } else {
             // We have no brains, start with a fresh one...
-            anyBrain = Brain()
+            anyBrain = Brain<Word16>()
         }
         
         // Mutate the internal wiring of the brain...

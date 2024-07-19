@@ -13,12 +13,12 @@ final class SmallTestsOneNeuron: XCTestCase {
     
     func testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy() {
         
-        let brain = Brain()
+        let brain = Brain<Word16>()
         
         brain.axons.append(.init(neuronIndexA: .input, neuronIndexB: .body(0), direction: .a_to_b))
         brain.axons.append(.init(neuronIndexA: .body(0), neuronIndexB: .output, direction: .a_to_b))
         
-        let neuron = Neuron()
+        let neuron = Neuron<Word16>()
         brain.neurons.append(neuron)
         
         neuron.rules.append(.copy)
@@ -27,7 +27,7 @@ final class SmallTestsOneNeuron: XCTestCase {
         
         brain.process_step_0()
         
-        brain.inputNeuron.inputBits.append(.one)
+        brain.inputNeuron.inputBits.append(true)
         
         brain.process_step_2()
         
@@ -44,7 +44,7 @@ final class SmallTestsOneNeuron: XCTestCase {
             return
         }
         
-        if neuron.inputBits[0].value != true {
+        if neuron.inputBits[0] != true {
             XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, inputBits[0] = true for middle neuron")
             return
         }
@@ -72,7 +72,7 @@ final class SmallTestsOneNeuron: XCTestCase {
             return
         }
         
-        if brain.outputNeuron.inputBits[0].value != true {
+        if brain.outputNeuron.inputBits[0] != true {
             XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, inputBits[0] = true for outputNeuron")
             return
         }
@@ -84,21 +84,20 @@ final class SmallTestsOneNeuron: XCTestCase {
             return
         }
         
-        if result.words[0].equals(uint16: 1) == false {
+        if result.words[0].equals(value: 1) == false {
             XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, words[0] to equal 1, it didn't")
             return
         }
-        
     }
     
     func testTwoPulse_TwoBits_OneRuleOnEach_Copy_Copy() {
         
-        let brain = Brain()
+        let brain = Brain<Word16>()
         
         brain.axons.append(.init(neuronIndexA: .input, neuronIndexB: .body(0), direction: .a_to_b))
         brain.axons.append(.init(neuronIndexA: .body(0), neuronIndexB: .output, direction: .a_to_b))
         
-        let neuron = Neuron()
+        let neuron = Neuron<Word16>()
         brain.neurons.append(neuron)
         
         neuron.rules.append(.copy)
@@ -108,8 +107,8 @@ final class SmallTestsOneNeuron: XCTestCase {
         
         brain.process_step_0()
         
-        brain.inputNeuron.inputBits.append(.one)
-        brain.inputNeuron.inputBits.append(.one)
+        brain.inputNeuron.inputBits.append(true)
+        brain.inputNeuron.inputBits.append(true)
         
         brain.process_step_2()
         
@@ -126,12 +125,12 @@ final class SmallTestsOneNeuron: XCTestCase {
             return
         }
         
-        if neuron.inputBits[0].value != true {
+        if neuron.inputBits[0] != true {
             XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, inputBits[0] = true for middle neuron")
             return
         }
         
-        if neuron.inputBits[1].value != true {
+        if neuron.inputBits[1] != true {
             XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, inputBits[1] = true for middle neuron")
             return
         }
@@ -159,12 +158,12 @@ final class SmallTestsOneNeuron: XCTestCase {
             return
         }
         
-        if brain.outputNeuron.inputBits[0].value != true {
+        if brain.outputNeuron.inputBits[0] != true {
             XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, inputBits[0] = true for outputNeuron")
             return
         }
         
-        if brain.outputNeuron.inputBits[1].value != true {
+        if brain.outputNeuron.inputBits[1] != true {
             XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, inputBits[1] = true for outputNeuron")
             return
         }
@@ -176,7 +175,7 @@ final class SmallTestsOneNeuron: XCTestCase {
             return
         }
         
-        if result.words[0].equals(uint16: 3) == false {
+        if result.words[0].equals(value: 3) == false {
             XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, words[0] to equal 3, it didn't")
             return
         }

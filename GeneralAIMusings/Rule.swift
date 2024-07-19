@@ -18,22 +18,22 @@ import Foundation
     case invert
     case one
     case zero
-    func process(bit: Bit) -> [Bit] {
-        var output = [Bit]()
+    func process(bit: Bool) -> [Bool] {
+        var output = [Bool]()
         switch self {
         case .dupe:
-            output.append(bit.clone())
-            output.append(bit.clone())
+            output.append(bit)
+            output.append(bit)
         case .remove:
             break
         case .copy:
-            output.append(bit.clone())
+            output.append(bit)
         case .invert:
-            output.append(bit.cloneAndInvert())
+            output.append(!bit)
         case .one:
-            output.append(Bit.one)
+            output.append(true)
         case .zero:
-            output.append(Bit.zero)
+            output.append(false)
         }
         return output
     }

@@ -7,7 +7,13 @@
 
 import Foundation
 
-class Neuron {
+enum NeuronIndex {
+    case input
+    case output
+    case body(Int)
+}
+
+class Neuron<WordType: Wordable> {
     
     enum MutationAction {
         case none
@@ -41,14 +47,10 @@ class Neuron {
         }
     }
     
-    enum NeuronIndex {
-        case input
-        case output
-        case body(Int)
-    }
     
-    var inputBits = [Bit]()
-    var outputBits = [Bit]()
+    
+    var inputBits = [Bool]()
+    var outputBits = [Bool]()
     
     var rules = [Rule]()
     
@@ -127,24 +129,19 @@ class Neuron {
         return result
     }
     
-    func appendWordToInput(word: Word) {
-        inputBits.append(word.bit_00)
-        inputBits.append(word.bit_01)
-        inputBits.append(word.bit_02)
-        inputBits.append(word.bit_03)
-        inputBits.append(word.bit_04)
-        inputBits.append(word.bit_05)
-        inputBits.append(word.bit_06)
-        inputBits.append(word.bit_07)
+    func appendWordToInput(word: WordType) {
         
-        inputBits.append(word.bit_08)
-        inputBits.append(word.bit_09)
-        inputBits.append(word.bit_10)
-        inputBits.append(word.bit_11)
-        inputBits.append(word.bit_12)
-        inputBits.append(word.bit_13)
-        inputBits.append(word.bit_14)
-        inputBits.append(word.bit_15)
+        var loopIndex = 0
+        while loopIndex < WordType.numberOfBits {
+            inputBits.append(word.bits[loopIndex])
+            loopIndex += 1
+        }
+    }
+    
+    func appendDataStreamToInput(dataStream: DataStream<WordType>) {
+        for word in dataStream.words {
+            appendWordToInput(word: word)
+        }
     }
     
 }

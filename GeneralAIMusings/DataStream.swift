@@ -7,13 +7,13 @@
 
 import Foundation
 
-class DataStream {
+class DataStream<WordType: Wordable> {
     
-    var words = [Word]()
+    var words = [WordType]()
     func clone() -> DataStream {
         let result = DataStream()
         for word in words {
-            result.words.append(word.clone())
+            result.words.append(word)
         }
         return result
     }
@@ -28,28 +28,29 @@ class DataStream {
     
     init(string: String) {
         for unicodeScalar in string.unicodeScalars {
-            let word = Word(uint16: UInt16(unicodeScalar.value))
+            let word = WordType(value: UInt32(unicodeScalar.value))
             words.append(word)
         }
     }
     
-    private let placeholderBit = Bit()
-    func getBit(at bitIndex: Int) -> Bit {
-        let byteIndex = bitIndex / 16
-        if byteIndex >= 0 && byteIndex < words.count {
-            let offset = bitIndex % 16
-            return words[byteIndex].getBit(at: offset)
+    func getBit(at bitIndex: Int) -> Bool {
+        if WordType.numberOfBits > 0 {
+            let byteIndex = bitIndex / WordType.numberOfBits
+            if byteIndex >= 0 && byteIndex < words.count {
+                let offset = bitIndex % WordType.numberOfBits
+                return words[byteIndex].getBit(at: offset)
+            }
         }
-        return placeholderBit
+        return false
     }
     
     
     var string: String {
-        words.map { $0.string }.joined()
+        words.compactMap { $0.getString() }.joined()
     }
     
-    var uint16s: [UInt16] {
-        words.map { $0.uint16 }
+    var values: [UInt32] {
+        words.map { $0.getValue() }
     }
-   
+    
 }

@@ -14,7 +14,7 @@ class Simulation {
     func generateSuperHumanIntelligence() {
         
         // The evaluator computes the fitness level of a "Brain..."
-        let evaluator = Evaluator()
+        let evaluator = Evaluator<Word4>()
         
         for trial in evaluator.trials {
             let input = trial.input.string
@@ -25,7 +25,7 @@ class Simulation {
         }
         
         // The population of AI brains...
-        var population = Population()
+        var population = Population<Word4>()
         
         // Try to load the results from previous executions... [A1]
         population.load()
@@ -55,10 +55,10 @@ class Simulation {
         
     }
     
-    func growAndEvolve_Step1(population: Population, count: Int) -> Population {
+    func growAndEvolve_Step1(population: Population<Word4>, count: Int) -> Population<Word4> {
         
         // Create the growing population.
-        var growingPopulation = Population()
+        var growingPopulation = Population<Word4>()
         
         // Add all of the original brains to the test population.
         population.brains.forEach { brain in
@@ -67,13 +67,13 @@ class Simulation {
         
         // Mutate the population members until we reach [count].
         while growingPopulation.brains.count < count {
-            let anyBrain: Brain
+            let anyBrain: Brain<Word4>
             if let randomBrain = population.brains.randomElement() {
                 // Choose a random brain from the seed population.
                 anyBrain = randomBrain.clone()
             } else {
                 // We have no brains, start with a fresh one...
-                anyBrain = Brain()
+                anyBrain = Brain<Word4>()
             }
             
             // Mutate the internal wiring of the brain...
@@ -84,10 +84,10 @@ class Simulation {
         return growingPopulation
     }
     
-    func growAndEvolve_Step2(population: Population, count: Int) -> Population {
+    func growAndEvolve_Step2(population: Population<Word4>, count: Int) -> Population<Word4> {
         
         // Create the breeding population. This can grow beyond [count]...
-        var breedingPopulation = Population()
+        var breedingPopulation = Population<Word4>()
         
         // Add all of the original brains to the breeding population.
         population.brains.forEach { brain in
@@ -142,13 +142,14 @@ class Simulation {
         return breedingPopulation
     }
     
-    func growAndEvolve_Step3(population: Population, evaluator: Evaluator, count: Int) -> Population {
+    func growAndEvolve_Step3(population: Population<Word4>,
+                             evaluator: Evaluator<Word4>, count: Int) -> Population<Word4> {
         
         // Create the prime population. We will keep the best [count]...
-        var primePopulation = Population()
+        var primePopulation = Population<Word4>()
         
         // Evaluate each brain using the fitness function...
-        var brainAndEvaluations = [(Brain, Evaluation)]()
+        var brainAndEvaluations = [(Brain<Word4>, Evaluation)]()
         population.brains.forEach { brain in
             let evaluation = evaluator.evaluate(brain: brain)
             brainAndEvaluations.append((brain, evaluation))

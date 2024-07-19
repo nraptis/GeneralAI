@@ -14,7 +14,7 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
     
     func testSinglePulseInputToOutput_Dupe_Zero() {
         
-        let brain = Brain()
+        let brain = Brain<Word16>()
         
         brain.axons.append(.init(neuronIndexA: .input, neuronIndexB: .output, direction: .a_to_b))
         
@@ -22,7 +22,7 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
         
         //Instead of step 1, we do a single bit and rule...
         brain.inputNeuron.rules.append(.dupe)
-        brain.inputNeuron.inputBits.append(.zero)
+        brain.inputNeuron.inputBits.append(false)
         
         brain.process_step_2()
         
@@ -42,7 +42,7 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
             return
         }
         
-        if result.words[0].equals(uint16: 0) == false {
+        if result.words[0].equals(value: 0) == false {
             XCTFail("testSinglePulseInputToOutput_Dupe_Zero, words[0] to equal 0, it didn't")
             return
         }
@@ -51,14 +51,15 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
     
     func testSinglePulseInputToOutput_Dupe_One() {
         
-        let brain = Brain()
+        let brain = Brain<Word16>()
         
         brain.axons.append(.init(neuronIndexA: .input, neuronIndexB: .output, direction: .a_to_b))
         
+        brain.inputNeuron.rules.append(.dupe)
+        
         brain.process_step_0()
         
-        brain.inputNeuron.rules.append(.dupe)
-        brain.inputNeuron.inputBits.append(.one)
+        brain.inputNeuron.inputBits.append(true)
         
         brain.process_step_2()
         
@@ -78,13 +79,39 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
             return
         }
         
-        if result.words[0].equals(uint16: 3) == false {
+        if result.words[0].equals(value: 3) == false {
             XCTFail("testSinglePulseInputToOutput_Dupe_Zero, words[0] to equal 0, it didn't")
             return
         }
-        
     }
     
-    
-    
+    func testSinglePulseInputToOutput_CopyWholeString() {
+     
+        let inputString = "這個人病得很重，確實病得很重"
+        let inputDataStream = DataStream<Word16>(string: inputString)
+        
+        let brain = Brain<Word16>()
+        
+        brain.axons.append(.init(neuronIndexA: .input, neuronIndexB: .output, direction: .a_to_b))
+        
+        brain.inputNeuron.rules.append(.copy)
+        
+        brain.process_step_0()
+        
+        brain.inputNeuron.appendDataStreamToInput(dataStream: inputDataStream)
+        
+        brain.process_step_2()
+        
+        brain.pulse_step_0()
+        brain.pulse_step_1()
+        
+        let result = brain.process_step_3()
+        
+        let outputString = result.string
+        
+        if outputString != inputString {
+            XCTFail("testSinglePulseInputToOutput_CopyWholeString, in(\(inputString)) out(\(outputString))")
+            return
+        }
+    }
 }

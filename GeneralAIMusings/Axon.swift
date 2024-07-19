@@ -15,12 +15,12 @@ class Axon {
         case both
     }
     
-    let neuronIndexA: Neuron.NeuronIndex
-    let neuronIndexB: Neuron.NeuronIndex
+    let neuronIndexA: NeuronIndex
+    let neuronIndexB: NeuronIndex
     let direction: AxonDirection
     
-    init(neuronIndexA: Neuron.NeuronIndex,
-         neuronIndexB: Neuron.NeuronIndex,
+    init(neuronIndexA: NeuronIndex,
+         neuronIndexB: NeuronIndex,
          direction: AxonDirection) {
         self.neuronIndexA = neuronIndexA
         self.neuronIndexB = neuronIndexB
@@ -59,8 +59,8 @@ class Axon {
             slotB = Int.random(in: 0..<ceiling)
         }
         
-        var neuronIndexA = Neuron.NeuronIndex.input
-        var neuronIndexB = Neuron.NeuronIndex.input
+        var neuronIndexA = NeuronIndex.input
+        var neuronIndexB = NeuronIndex.input
         
         if slotA <= 0 {
             neuronIndexA = .input

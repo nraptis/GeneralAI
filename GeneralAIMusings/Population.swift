@@ -7,9 +7,9 @@
 
 import Foundation
 
-class Population {
+class Population<WordType: Wordable> {
     
-    var brains = [Brain]()
+    var brains = [Brain<WordType>]()
     
     func save() {
         
