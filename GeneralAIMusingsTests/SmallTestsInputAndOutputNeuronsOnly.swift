@@ -78,7 +78,7 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
             return
         }
         
-        if result.bytes[0].equals(uint8: 0) == false {
+        if result.bytes[0].equals(uint8: 3) == false {
             XCTFail("testSinglePulseInputToOutput_Dupe_Zero, bytes[0] to equal 0, it didn't")
             return
         }

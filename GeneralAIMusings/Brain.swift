@@ -291,14 +291,14 @@ class Brain {
         var resultBitIndex = 0
         while resultBitIndex < outputNeuron.inputBits.count {
             
-            let bit0 = ((resultBitIndex + 0) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 0] : Bit()
-            let bit1 = ((resultBitIndex + 1) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 1] : Bit()
-            let bit2 = ((resultBitIndex + 2) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 2] : Bit()
-            let bit3 = ((resultBitIndex + 3) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 3] : Bit()
-            let bit4 = ((resultBitIndex + 4) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 4] : Bit()
-            let bit5 = ((resultBitIndex + 5) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 5] : Bit()
-            let bit6 = ((resultBitIndex + 6) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 6] : Bit()
-            let bit7 = ((resultBitIndex + 7) < outputNeuron.outputBits.count) ? outputNeuron.outputBits[resultBitIndex + 7] : Bit()
+            let bit0 = ((resultBitIndex + 0) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 0] : Bit()
+            let bit1 = ((resultBitIndex + 1) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 1] : Bit()
+            let bit2 = ((resultBitIndex + 2) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 2] : Bit()
+            let bit3 = ((resultBitIndex + 3) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 3] : Bit()
+            let bit4 = ((resultBitIndex + 4) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 4] : Bit()
+            let bit5 = ((resultBitIndex + 5) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 5] : Bit()
+            let bit6 = ((resultBitIndex + 6) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 6] : Bit()
+            let bit7 = ((resultBitIndex + 7) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 7] : Bit()
             
             let resultByte = Byte()
             
