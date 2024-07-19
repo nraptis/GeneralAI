@@ -9,36 +9,47 @@ import Foundation
 
 class DataStream {
     
-    var bytes = [Byte]()
+    var words = [Word]()
     func clone() -> DataStream {
         let result = DataStream()
-        for byte in bytes {
-            result.bytes.append(byte.clone())
+        for word in words {
+            result.words.append(word.clone())
         }
         return result
     }
     
     var bitCount: Int {
-        bytes.count * 8
+        words.count * 16
+    }
+    
+    init() {
+        
+    }
+    
+    init(string: String) {
+        for unicodeScalar in string.unicodeScalars {
+            let word = Word(uint16: UInt16(unicodeScalar.value))
+            words.append(word)
+        }
     }
     
     private let placeholderBit = Bit()
     func getBit(at bitIndex: Int) -> Bit {
-        let byteIndex = bitIndex / 8
-        if byteIndex >= 0 && byteIndex < bytes.count {
-            let offset = bitIndex % 8
-            return bytes[byteIndex].getBit(at: offset)
+        let byteIndex = bitIndex / 16
+        if byteIndex >= 0 && byteIndex < words.count {
+            let offset = bitIndex % 16
+            return words[byteIndex].getBit(at: offset)
         }
         return placeholderBit
     }
     
     
     var string: String {
-        bytes.map { $0.string }.joined()
+        words.map { $0.string }.joined()
     }
     
-    var uint8s: [UInt8] {
-        bytes.map { $0.uint8 }
+    var uint16s: [UInt16] {
+        words.map { $0.uint16 }
     }
    
 }

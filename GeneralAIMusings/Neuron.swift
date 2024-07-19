@@ -127,15 +127,24 @@ class Neuron {
         return result
     }
     
-    func appendByteToInput(byte: Byte) {
-        inputBits.append(byte.bit0)
-        inputBits.append(byte.bit1)
-        inputBits.append(byte.bit2)
-        inputBits.append(byte.bit3)
-        inputBits.append(byte.bit4)
-        inputBits.append(byte.bit5)
-        inputBits.append(byte.bit6)
-        inputBits.append(byte.bit7)
+    func appendWordToInput(word: Word) {
+        inputBits.append(word.bit_00)
+        inputBits.append(word.bit_01)
+        inputBits.append(word.bit_02)
+        inputBits.append(word.bit_03)
+        inputBits.append(word.bit_04)
+        inputBits.append(word.bit_05)
+        inputBits.append(word.bit_06)
+        inputBits.append(word.bit_07)
+        
+        inputBits.append(word.bit_08)
+        inputBits.append(word.bit_09)
+        inputBits.append(word.bit_10)
+        inputBits.append(word.bit_11)
+        inputBits.append(word.bit_12)
+        inputBits.append(word.bit_13)
+        inputBits.append(word.bit_14)
+        inputBits.append(word.bit_15)
     }
     
 }

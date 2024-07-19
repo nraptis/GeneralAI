@@ -60,17 +60,17 @@ final class GeneralAIMusingsTests: XCTestCase {
         }
     }
     
-    func testStepOne_OneByte() {
+    func testStepOne_OneWord() {
         
         let brain = Brain()
         
         let dataStream = DataStream()
-        dataStream.bytes.append(Byte(uint8: 3))
+        dataStream.words.append(Word(uint16: 3))
         
         brain.process_step_1(dataStream: dataStream)
         
-        if brain.inputNeuron.inputBits.count != 8 {
-            XCTFail("Expected 8 bits on neuron")
+        if brain.inputNeuron.inputBits.count != 16 {
+            XCTFail("Expected 16 bits on neuron")
             return
         }
         
@@ -84,51 +84,7 @@ final class GeneralAIMusingsTests: XCTestCase {
             return
         }
         
-        for i in 2...7 {
-            if brain.inputNeuron.inputBits[i].value != false {
-                XCTFail("testStepOne:: expected neuron input bit \(i) to have false")
-                return
-            }
-        }
-    }
-    
-    func testStepOne_TwoBytes() {
-        
-        let brain = Brain()
-        
-        let dataStream = DataStream()
-        dataStream.bytes.append(Byte(uint8: 7))
-        dataStream.bytes.append(Byte(uint8: 56))
-        
-        brain.process_step_1(dataStream: dataStream)
-        
-        if brain.inputNeuron.inputBits.count != 16 {
-            XCTFail("Expected 16 bits on neuron")
-            return
-        }
-        
-        for i in 0...2 {
-            if brain.inputNeuron.inputBits[i].value != true {
-                XCTFail("testStepOne:: expected neuron input bit \(i) to have true")
-                return
-            }
-        }
-        
-        for i in 3...10 {
-            if brain.inputNeuron.inputBits[i].value != false {
-                XCTFail("testStepOne:: expected neuron input bit \(i) to have false")
-                return
-            }
-        }
-        
-        for i in 11...13 {
-            if brain.inputNeuron.inputBits[i].value != true {
-                XCTFail("testStepOne:: expected neuron input bit \(i) to have true")
-                return
-            }
-        }
-        
-        for i in 14...15 {
+        for i in 2...15 {
             if brain.inputNeuron.inputBits[i].value != false {
                 XCTFail("testStepOne:: expected neuron input bit \(i) to have false")
                 return

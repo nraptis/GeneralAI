@@ -208,8 +208,8 @@ class Brain {
     }
     
     func process_step_1(dataStream: DataStream) {
-        for byte in dataStream.bytes {
-            inputNeuron.appendByteToInput(byte: byte)
+        for word in dataStream.words {
+            inputNeuron.appendWordToInput(word: word)
         }
     }
     
@@ -291,30 +291,46 @@ class Brain {
         var resultBitIndex = 0
         while resultBitIndex < outputNeuron.inputBits.count {
             
-            let bit0 = ((resultBitIndex + 0) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 0] : Bit()
-            let bit1 = ((resultBitIndex + 1) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 1] : Bit()
-            let bit2 = ((resultBitIndex + 2) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 2] : Bit()
-            let bit3 = ((resultBitIndex + 3) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 3] : Bit()
-            let bit4 = ((resultBitIndex + 4) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 4] : Bit()
-            let bit5 = ((resultBitIndex + 5) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 5] : Bit()
-            let bit6 = ((resultBitIndex + 6) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 6] : Bit()
-            let bit7 = ((resultBitIndex + 7) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 7] : Bit()
+            let bit_00 = ((resultBitIndex + 0) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 0] : Bit()
+            let bit_01 = ((resultBitIndex + 1) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 1] : Bit()
+            let bit_02 = ((resultBitIndex + 2) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 2] : Bit()
+            let bit_03 = ((resultBitIndex + 3) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 3] : Bit()
+            let bit_04 = ((resultBitIndex + 4) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 4] : Bit()
+            let bit_05 = ((resultBitIndex + 5) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 5] : Bit()
+            let bit_06 = ((resultBitIndex + 6) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 6] : Bit()
+            let bit_07 = ((resultBitIndex + 7) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 7] : Bit()
             
-            let resultByte = Byte()
+            let bit_08 = ((resultBitIndex + 8) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 8] : Bit()
+            let bit_09 = ((resultBitIndex + 9) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 9] : Bit()
+            let bit_10 = ((resultBitIndex + 10) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 10] : Bit()
+            let bit_11 = ((resultBitIndex + 11) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 11] : Bit()
+            let bit_12 = ((resultBitIndex + 12) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 12] : Bit()
+            let bit_13 = ((resultBitIndex + 13) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 13] : Bit()
+            let bit_14 = ((resultBitIndex + 14) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 14] : Bit()
+            let bit_15 = ((resultBitIndex + 15) < outputNeuron.inputBits.count) ? outputNeuron.inputBits[resultBitIndex + 15] : Bit()
             
-            resultByte.bit0 = bit0.clone()
-            resultByte.bit1 = bit1.clone()
-            resultByte.bit2 = bit2.clone()
-            resultByte.bit3 = bit3.clone()
             
-            resultByte.bit4 = bit4.clone()
-            resultByte.bit5 = bit5.clone()
-            resultByte.bit6 = bit6.clone()
-            resultByte.bit7 = bit7.clone()
+            let resultWord = Word()
             
-            result.bytes.append(resultByte)
+            resultWord.bit_00 = bit_00.clone()
+            resultWord.bit_01 = bit_01.clone()
+            resultWord.bit_02 = bit_02.clone()
+            resultWord.bit_03 = bit_03.clone()
+            resultWord.bit_04 = bit_04.clone()
+            resultWord.bit_05 = bit_05.clone()
+            resultWord.bit_06 = bit_06.clone()
+            resultWord.bit_07 = bit_07.clone()
             
-            resultBitIndex += 8
+            resultWord.bit_08 = bit_08.clone()
+            resultWord.bit_09 = bit_09.clone()
+            resultWord.bit_10 = bit_10.clone()
+            resultWord.bit_11 = bit_11.clone()
+            resultWord.bit_12 = bit_12.clone()
+            resultWord.bit_13 = bit_13.clone()
+            resultWord.bit_14 = bit_14.clone()
+            resultWord.bit_15 = bit_15.clone()
+            result.words.append(resultWord)
+            resultBitIndex += 16
         }
         
         return result

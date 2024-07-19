@@ -37,13 +37,13 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
         
         let result = brain.process_step_3()
         
-        if result.bytes.count != 1 {
-            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, expected 1 byte in the result... Got \(result.bytes.count) bytes instead")
+        if result.words.count != 1 {
+            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, expected 1 word in the result... Got \(result.words.count) words instead")
             return
         }
         
-        if result.bytes[0].equals(uint8: 0) == false {
-            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, bytes[0] to equal 0, it didn't")
+        if result.words[0].equals(uint16: 0) == false {
+            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, words[0] to equal 0, it didn't")
             return
         }
         
@@ -73,13 +73,13 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
         
         let result = brain.process_step_3()
         
-        if result.bytes.count != 1 {
-            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, expected 1 byte in the result... Got \(result.bytes.count) bytes instead")
+        if result.words.count != 1 {
+            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, expected 1 word in the result... Got \(result.words.count) words instead")
             return
         }
         
-        if result.bytes[0].equals(uint8: 3) == false {
-            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, bytes[0] to equal 0, it didn't")
+        if result.words[0].equals(uint16: 3) == false {
+            XCTFail("testSinglePulseInputToOutput_Dupe_Zero, words[0] to equal 0, it didn't")
             return
         }
         

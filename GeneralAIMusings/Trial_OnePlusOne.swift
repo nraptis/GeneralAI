@@ -14,54 +14,54 @@ class Trial_OnePlusOne: Trial {
         super.init()
         
         //1
-        let inputByte1 = Byte()
-        inputByte1.bit0.value = true
-        inputByte1.bit1.value = false
-        inputByte1.bit2.value = false
-        inputByte1.bit3.value = false
-        inputByte1.bit4.value = true
-        inputByte1.bit5.value = true
-        inputByte1.bit6.value = false
-        inputByte1.bit7.value = false
+        let inputWord1 = Word()
+        inputWord1.bit_00.value = true
+        inputWord1.bit_01.value = false
+        inputWord1.bit_02.value = false
+        inputWord1.bit_03.value = false
+        inputWord1.bit_04.value = true
+        inputWord1.bit_05.value = true
+        inputWord1.bit_06.value = false
+        inputWord1.bit_07.value = false
         
         //+
-        let inputByte2 = Byte()
-        inputByte2.bit0.value = true
-        inputByte2.bit1.value = true
-        inputByte2.bit2.value = false
-        inputByte2.bit3.value = true
-        inputByte2.bit4.value = false
-        inputByte2.bit5.value = true
-        inputByte2.bit6.value = false
-        inputByte2.bit7.value = false
+        let inputWord2 = Word()
+        inputWord2.bit_00.value = true
+        inputWord2.bit_01.value = true
+        inputWord2.bit_02.value = false
+        inputWord2.bit_03.value = true
+        inputWord2.bit_04.value = false
+        inputWord2.bit_05.value = true
+        inputWord2.bit_06.value = false
+        inputWord2.bit_07.value = false
         
         //1
-        let inputByte3 = Byte()
-        inputByte3.bit0.value = true
-        inputByte3.bit1.value = false
-        inputByte3.bit2.value = false
-        inputByte3.bit3.value = false
-        inputByte3.bit4.value = true
-        inputByte3.bit5.value = true
-        inputByte3.bit6.value = false
-        inputByte3.bit7.value = false
+        let inputWord3 = Word()
+        inputWord3.bit_00.value = true
+        inputWord3.bit_01.value = false
+        inputWord3.bit_02.value = false
+        inputWord3.bit_03.value = false
+        inputWord3.bit_04.value = true
+        inputWord3.bit_05.value = true
+        inputWord3.bit_06.value = false
+        inputWord3.bit_07.value = false
         
-        input.bytes.append(inputByte1)
-        input.bytes.append(inputByte2)
-        input.bytes.append(inputByte3)
+        input.words.append(inputWord1)
+        input.words.append(inputWord2)
+        input.words.append(inputWord3)
         
         //2
-        let outputByte1 = Byte()
-        outputByte1.bit0.value = false
-        outputByte1.bit1.value = true
-        outputByte1.bit2.value = false
-        outputByte1.bit3.value = false
-        outputByte1.bit4.value = true
-        outputByte1.bit5.value = true
-        outputByte1.bit6.value = false
-        outputByte1.bit7.value = false
+        let outputWord1 = Word()
+        outputWord1.bit_00.value = false
+        outputWord1.bit_01.value = true
+        outputWord1.bit_02.value = false
+        outputWord1.bit_03.value = false
+        outputWord1.bit_04.value = true
+        outputWord1.bit_05.value = true
+        outputWord1.bit_06.value = false
+        outputWord1.bit_07.value = false
         
-        expectedOutput.bytes.append(outputByte1)
+        expectedOutput.words.append(outputWord1)
         
     }
     

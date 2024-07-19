@@ -25,7 +25,6 @@ final class SmallTestsOneNeuron: XCTestCase {
         
         brain.inputNeuron.rules.append(.copy)
         
-        
         brain.process_step_0()
         
         brain.inputNeuron.inputBits.append(.one)
@@ -80,13 +79,13 @@ final class SmallTestsOneNeuron: XCTestCase {
         
         let result = brain.process_step_3()
         
-        if result.bytes.count != 1 {
-            XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, expected 1 byte in the result... Got \(result.bytes.count) bytes instead")
+        if result.words.count != 1 {
+            XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, expected 1 byte in the result... Got \(result.words.count) words instead")
             return
         }
         
-        if result.bytes[0].equals(uint8: 1) == false {
-            XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, bytes[0] to equal 1, it didn't")
+        if result.words[0].equals(uint16: 1) == false {
+            XCTFail("testTwoPulse_OneBit_OneRuleOnEach_Copy_Copy, words[0] to equal 1, it didn't")
             return
         }
         
@@ -172,15 +171,17 @@ final class SmallTestsOneNeuron: XCTestCase {
         
         let result = brain.process_step_3()
         
-        if result.bytes.count != 1 {
-            XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, expected 1 byte in the result... Got \(result.bytes.count) bytes instead")
+        if result.words.count != 1 {
+            XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, expected 1 byte in the result... Got \(result.words.count) words instead")
             return
         }
         
-        if result.bytes[0].equals(uint8: 3) == false {
-            XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, bytes[0] to equal 3, it didn't")
+        if result.words[0].equals(uint16: 3) == false {
+            XCTFail("testTwoPulse_OneRuleOnEach_Copy_Copy, words[0] to equal 3, it didn't")
             return
         }
-        
     }
+    
+    
+    
 }

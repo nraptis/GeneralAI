@@ -13,6 +13,7 @@ class Evaluator {
     
     func evaluate(brain: Brain) -> Evaluation {
         
+        /*
         if (brain.neurons.count > 0) || (brain.axons.count > 0) {
             var allEvaluations = [Evaluation]()
             for trial in trials {
@@ -29,7 +30,7 @@ class Evaluator {
                 return allEvaluations[0]
             }
         }
-        
+        */
         
         
         return .feasible(.high)
@@ -37,6 +38,7 @@ class Evaluator {
     
     func evaluate(dataStreamInput: DataStream, dataStreamOutput: DataStream) -> Evaluation {
         
+        /*
         let expectedByte = Byte()
         expectedByte.bit0.value = false
         expectedByte.bit1.value = true
@@ -76,6 +78,7 @@ class Evaluator {
         } else if dataStreamOutput.bytes.count == 4 {
             return Evaluation.useless(.medium)
         } 
+        */
         
         return Evaluation.useless(.low)
     }
