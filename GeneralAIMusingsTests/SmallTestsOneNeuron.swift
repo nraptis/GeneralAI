@@ -104,7 +104,6 @@ final class SmallTestsOneNeuron: XCTestCase {
         
         brain.inputNeuron.rules.append(.copy)
         
-        
         brain.process_step_0()
         
         brain.inputNeuron.inputBits.append(true)

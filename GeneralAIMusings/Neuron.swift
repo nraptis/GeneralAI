@@ -129,8 +129,11 @@ class Neuron<WordType: Wordable> {
         return result
     }
     
+    func appendBitToInput(bit: Bool) {
+        inputBits.append(bit)
+    }
+    
     func appendWordToInput(word: WordType) {
-        
         var loopIndex = 0
         while loopIndex < WordType.numberOfBits {
             inputBits.append(word.bits[loopIndex])
