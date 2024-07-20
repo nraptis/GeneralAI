@@ -190,4 +190,38 @@ final class OneTestForEachRule: XCTestCase {
             XCTFail("testRuleZero, expected outputBits[0] as false")
         }
     }
+    
+    func testRuleAnd_OneOne() {
+        let brain = Brain<Word16>()
+        brain.process_step_2()
+        brain.inputNeuron.rules.append(.and)
+        brain.inputNeuron.inputBits.append(true)
+        brain.inputNeuron.inputBits.append(true)
+        
+        brain.pulse_step_0()
+        
+        if brain.inputNeuron.outputBits.count != 1 {
+            XCTFail("testRuleAnd, expected 1 outputBits for inputNeuron")
+        }
+        if brain.inputNeuron.outputBits[0] != true {
+            XCTFail("testRuleAnd, expected outputBits[0] as true")
+        }
+    }
+    
+    func testRuleAnd_OneZero() {
+        let brain = Brain<Word16>()
+        brain.process_step_2()
+        brain.inputNeuron.rules.append(.and)
+        brain.inputNeuron.inputBits.append(true)
+        brain.inputNeuron.inputBits.append(false)
+        
+        brain.pulse_step_0()
+        
+        if brain.inputNeuron.outputBits.count != 1 {
+            XCTFail("testRuleAnd, expected 1 outputBits for inputNeuron")
+        }
+        if brain.inputNeuron.outputBits[0] != false {
+            XCTFail("testRuleAnd, expected outputBits[0] as false")
+        }
+    }
 }

@@ -236,14 +236,26 @@ class Brain<WordType: Wordable> {
                 var ruleIndex = 0
                 while bitIndex < neuron.inputBits.count {
                     
-                    let bit = neuron.inputBits[bitIndex]
+                    let bit1 = neuron.inputBits[bitIndex]
                     let rule = neuron.rules[ruleIndex]
                     
-                    //         > Perform the rule on the bit, then add to output bits
-                    let bitsFromApplyingRuleToBit = rule.process(bit: bit)
-                    neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
+                    if rule.isTwoBitRule {
+                        bitIndex += 1
+                        if bitIndex < neuron.inputBits.count {
+                            let bit2 = neuron.inputBits[bitIndex]
+                            
+                            let bitsFromApplyingRuleToBit = rule.processTwoBits(firstBit: bit1, secondBit: bit2)
+                            neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
+                            
+                            bitIndex += 1
+                        }
+                        
+                    } else {
+                        let bitsFromApplyingRuleToBit = rule.processSingleBit(bit: bit1)
+                        neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
+                        bitIndex += 1
+                    }
                     
-                    bitIndex += 1
                     ruleIndex += 1
                     if ruleIndex >= neuron.rules.count {
                         ruleIndex = 0
