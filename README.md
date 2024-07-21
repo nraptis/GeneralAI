@@ -1,16 +1,20 @@
 # Generalized AI
 
-
-![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/test_case_1_no_mux.jpg)</br></br>
-</br>
-This test case is still in review. I am modeling out the brain functionality with diagrams before returning to the code.</br></br>
-
 ![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/1000_yard_view.jpg)</br></br>
 </br>
-This test case was found to be incorrect and insifficient; it will be removed.</br></br>
+This is the overview / meta goal...
+
+![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/test_case_1_no_mux_fixed_2.jpg)</br></br>
+</br>
+This is the 3rd try at diagram #1... I am reviewing these carefully before fingers-to-the-keys...</br></br>
+
+![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/test_case_1_no_mux_fixed_1.jpg)</br></br>
+</br>
+This is the 2nd try at diagram #1... I found a bug on pulse #4...</br></br>
 
 ![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/agi_pulses.jpg)</br></br>
 </br>
+This is the 1st try at diagram #1... I found a bug on pulse #3...</br></br>
 
 Anyone is allowed to contribute to this. I will review any pull request until April 17, 2028, at which time I will re-evaluate this policy.</br></br>
 
