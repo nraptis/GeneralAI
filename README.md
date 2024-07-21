@@ -1,7 +1,13 @@
 # Generalized AI
 
+
+![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/test_case_1_no_mux.jpg)</br></br>
+</br>
+This test case is still in review. I am modeling out the brain functionality with diagrams before returning to the code.</br></br>
+
 ![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/1000_yard_view.jpg)</br></br>
 </br>
+This test case was found to be incorrect and insifficient; it will be removed.</br></br>
 
 ![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/agi_pulses.jpg)</br></br>
 </br>
