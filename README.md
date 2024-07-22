@@ -1,20 +1,12 @@
 # Generalized AI
 
+![alt text](https://github.com/nraptis/GeneralAI/blob/main/brain_test_dinky_boy.jpg)</br></br>
+</br>
+The first simple brain model to build. This diagram has gone through several rounds of consideration. To evolve, through the genetic algorithm, even a simple number adder, an entirely random process will take trillions of iterations. So my first plan is to evolve a brain which can solve "1+1" as "2" using a narrow language, such as a 4 byte language. By pruning "bad paths" early, it may be a problem which is solve-able in realistic time. I still don't know.
+
 ![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/1000_yard_view.jpg)</br></br>
 </br>
 This is the overview / meta goal...
-
-![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/test_case_1_no_mux_fixed_2.jpg)</br></br>
-</br>
-This is the 3rd try at diagram #1... I am reviewing these carefully before fingers-to-the-keys...</br></br>
-
-![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/test_case_1_no_mux_fixed_1.jpg)</br></br>
-</br>
-This is the 2nd try at diagram #1... I found a bug on pulse #4...</br></br>
-
-![alt text](https://raw.githubusercontent.com/nraptis/GeneralAI/main/agi_pulses.jpg)</br></br>
-</br>
-This is the 1st try at diagram #1... I found a bug on pulse #3...</br></br>
 
 Anyone is allowed to contribute to this. I will review any pull request until April 17, 2028, at which time I will re-evaluate this policy.</br></br>
 
