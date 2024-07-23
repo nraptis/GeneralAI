@@ -60,9 +60,11 @@ class Bus<WordType: Wordable> {
     }
     
     func canRead(_ count: Int) -> Bool {
-        let remainingWordCount = (length - readCursor)
-        if remainingWordCount >= 0 && remainingWordCount >= count {
-            return true
+        if count > 0 {
+            let remainingWordCount = (length - readCursor)
+            if remainingWordCount >= 0 && remainingWordCount >= count {
+                return true
+            }
         }
         return false
     }

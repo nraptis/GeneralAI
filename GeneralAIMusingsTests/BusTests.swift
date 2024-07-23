@@ -118,7 +118,7 @@ final class BusTests: XCTestCase {
             for writeIndex in 0..<numberToWrite {
                 bus.write(Word8(value: UInt32(writeIndex)))
             }
-            for numberToRead in 0..<32 {
+            for numberToRead in 1..<32 {
                 let canRead = bus.canRead(numberToRead)
                 if numberToRead > loopIndex {
                     if canRead {

@@ -35,9 +35,11 @@ class NeuronQueue<WordType: Wordable> {
     }
     
     func canWrite(_ count: Int) -> Bool {
-        let remainingCapacity = (capacity - self.count)
-        if count < remainingCapacity {
-            return true
+        if count > 0 {
+            let remainingCapacity = (capacity - self.count)
+            if count <= remainingCapacity {
+                return true
+            }
         }
         return false
     }
@@ -95,7 +97,7 @@ class NeuronQueue<WordType: Wordable> {
                 result.append(buffer[resultIndex])
             }
             var loopIndex = count
-            while loopIndex < count {
+            while loopIndex < self.count {
                 buffer[loopIndex - count] = buffer[loopIndex]
                 loopIndex += 1
             }
