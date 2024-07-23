@@ -44,7 +44,7 @@ struct Word16: Wordable {
 }
 
 struct Word32: Wordable {
-    static var numberOfBits = 16
+    static var numberOfBits = 32
     var bits: [Bool]
     init(value: UInt32) {
         bits = [Bool](repeating: false, count: Self.numberOfBits)

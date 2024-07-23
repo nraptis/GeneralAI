@@ -12,12 +12,8 @@ class Bus<WordType: Wordable> {
     private var buffer = [WordType]()
     private var capacity = 0
     private(set) var length = 0
-    private var readCursor = 0
-    private var writeCursor = 0
-    
-    var isEmpty: Bool {
-        length <= 0
-    }
+    private(set) var readCursor = 0
+    private(set) var writeCursor = 0
     
     func clear() {
         buffer.removeAll()
@@ -25,10 +21,6 @@ class Bus<WordType: Wordable> {
         readCursor = 0
         writeCursor = 0
         capacity = 0
-    }
-    
-    func readReset() {
-        readCursor = 0
     }
     
     var contents: [WordType] {
@@ -60,10 +52,24 @@ class Bus<WordType: Wordable> {
         }
     }
     
-    func read(_ count: Int) -> [WordType] {
-        var result = [WordType]()
+    func canRead() -> Bool {
+        if readCursor < length {
+            return true
+        }
+        return false
+    }
+    
+    func canRead(_ count: Int) -> Bool {
         let remainingWordCount = (length - readCursor)
         if remainingWordCount >= 0 && remainingWordCount >= count {
+            return true
+        }
+        return false
+    }
+    
+    func read(_ count: Int) -> [WordType] {
+        var result = [WordType]()
+        if canRead(count) {
             var loopIndex = 0
             while loopIndex < count {
                 result.append(buffer[readCursor])
@@ -76,7 +82,7 @@ class Bus<WordType: Wordable> {
     
     func read() -> WordType? {
         var result: WordType?
-        if readCursor < length {
+        if canRead() {
             result = buffer[readCursor]
             readCursor += 1
         }
