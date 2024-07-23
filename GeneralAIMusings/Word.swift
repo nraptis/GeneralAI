@@ -7,6 +7,15 @@
 
 import Foundation
 
+struct Word1: Wordable {
+    static var numberOfBits = 1
+    var bits: [Bool]
+    init(value: UInt32) {
+        bits = [Bool](repeating: false, count: Self.numberOfBits)
+        setValue(value)
+    }
+}
+
 struct Word4: Wordable {
     static var numberOfBits = 4
     var bits: [Bool]
