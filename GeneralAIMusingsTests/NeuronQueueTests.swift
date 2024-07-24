@@ -214,10 +214,10 @@ final class NeuronQueueTests: XCTestCase {
         }
     }
     
-    func testNeuronQueue_500000_ReadWrite() {
-        for OUTER_LOOP in 0..<50_000 {
+    func testNeuronQueue_5000000_ReadWrite() {
+        for OUTER_LOOP in 0..<500_000 {
             
-            let capacity = Int.random(in: 0...64)
+            let capacity = Int.random(in: 0...48)
             
             let queue = NeuronQueue<Word32>(capacity: capacity)
             
@@ -225,12 +225,12 @@ final class NeuronQueueTests: XCTestCase {
             var readArrayControl = [UInt32]()
             var readArrayObserved = [UInt32]()
             
-            let numberOfTrials = Int.random(in: 1...12)
+            let numberOfTrials = Int.random(in: 0...12)
             
             for _ in 0..<numberOfTrials {
                 
-                let numberOfWrites = Int.random(in: 1...6)
-                let numberOfReads = Int.random(in: 1...4)
+                let numberOfWrites = Int.random(in: 0...6)
+                let numberOfReads = Int.random(in: 0...4)
                 
                 var writeData = [UInt32]()
                 for _ in 0..<numberOfWrites {
