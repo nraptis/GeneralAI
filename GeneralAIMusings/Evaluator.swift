@@ -36,8 +36,8 @@ class Evaluator<WordType: Wordable> {
         return .feasible(.high)
     }
     
-    func evaluate(dataStreamInput: DataStream<WordType>,
-                  dataStreamOutput: DataStream<WordType>) -> Evaluation {
+    func evaluate(queryBus: Bus<WordType>,
+                  expectedOutputBus: Bus<WordType>) -> Evaluation {
         
         /*
         let expectedByte = Byte()

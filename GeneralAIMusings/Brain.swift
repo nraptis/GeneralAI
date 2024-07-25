@@ -10,6 +10,7 @@ import Foundation
 class Brain<WordType: Wordable> {
     
     let queryBus = Bus<WordType>()
+    let responseBus = Bus<WordType>()
     
     let inputNeuron: Neuron<WordType>
     let outputNeuron: Neuron<WordType>
@@ -210,14 +211,7 @@ class Brain<WordType: Wordable> {
         }
     }
     
-    func process_step_1(dataStream: DataStream<WordType>) {
-        for word in dataStream.words {
-            //inputNeuron.appendWordToInput(word: word)
-            
-        }
-    }
-    
-    func process_step_2() {
+    func process_step_1() {
         
         processNeuronList.removeAll(keepingCapacity: true)
         
@@ -307,8 +301,7 @@ class Brain<WordType: Wordable> {
         */
     }
     
-    func process_step_3() -> DataStream<WordType> {
-        let result = DataStream<WordType>()
+    func process_step_3() {
         
         /*
         var resultBitIndex = 0
@@ -334,16 +327,13 @@ class Brain<WordType: Wordable> {
         }
         */
         
-        return result
     }
     
-    func process(dataStream: DataStream<WordType>) -> DataStream<WordType> {
+    func process() {
         
         process_step_0()
         
-        process_step_1(dataStream: dataStream)
-        
-        process_step_2()
+        process_step_1()
         
         // 3.) Do N number of pulses... On each pulse, we do these:
         var loopIndex = 0

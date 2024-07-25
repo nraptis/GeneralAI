@@ -16,6 +16,7 @@ class Simulation {
         // The evaluator computes the fitness level of a "Brain..."
         let evaluator = Evaluator<Word4>()
         
+        /*
         for trial in evaluator.trials {
             let input = trial.input.string
             let output = trial.expectedOutput.string
@@ -23,6 +24,7 @@ class Simulation {
             print("Trial: [\(input)] => [\(output)]")
             
         }
+        */
         
         // The population of AI brains...
         var population = Population<Word4>()

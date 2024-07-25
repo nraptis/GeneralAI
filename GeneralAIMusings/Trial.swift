@@ -10,9 +10,10 @@ import Foundation
 class Trial {
     
     
-    var input = DataStream<Word4>()
+    //var input = DataStream<Word4>()
     
-    var expectedOutput = DataStream<Word4>()
+    //var expectedOutput = DataStream<Word4>()
+    
     
     
 }

@@ -90,3 +90,57 @@ extension Wordable {
     }
     */
 }
+
+extension Wordable {
+ 
+    func invert() -> Self {
+        var result = Self(value: 0)
+        var loopIndex = 0
+        while loopIndex < Self.numberOfBits {
+            result.bits[loopIndex] = !bits[loopIndex]
+            loopIndex += 1
+        }
+        return result
+    }
+    
+    func and(_ word: Self) -> Self {
+        var result = Self(value: 0)
+        var loopIndex = 0
+        while loopIndex < Self.numberOfBits {
+            result.bits[loopIndex] = (bits[loopIndex] && word.bits[loopIndex])
+            loopIndex += 1
+        }
+        return result
+    }
+    
+    func or(_ word: Self) -> Self {
+        var result = Self(value: 0)
+        var loopIndex = 0
+        while loopIndex < Self.numberOfBits {
+            result.bits[loopIndex] = (bits[loopIndex] || word.bits[loopIndex])
+            loopIndex += 1
+        }
+        return result
+    }
+    
+    func xor(_ word: Self) -> Self {
+        var result = Self(value: 0)
+        var loopIndex = 0
+        while loopIndex < Self.numberOfBits {
+            result.bits[loopIndex] = (bits[loopIndex] != word.bits[loopIndex])
+            loopIndex += 1
+        }
+        return result
+    }
+    
+    func equals(_ word: Self) -> Self {
+        var result = Self(value: 0)
+        var loopIndex = 0
+        while loopIndex < Self.numberOfBits {
+            result.bits[loopIndex] = (bits[loopIndex] == word.bits[loopIndex])
+            loopIndex += 1
+        }
+        return result
+    }
+    
+}

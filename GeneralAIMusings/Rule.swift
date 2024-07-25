@@ -7,10 +7,7 @@
 
 import Foundation
 
-// The whole idea of this is to keep the "Rules"
-// very simple. 
-
-enum Rule {
+enum Rule<WordType: Wordable> {
     
     case dupe
     case remove
@@ -22,72 +19,69 @@ enum Rule {
     case and
     case or
     case xor
-    case swap
     case equal
     
-    var isTwoBitRule: Bool {
+    func getNumberOfWordsRequired() -> Int {
         switch self {
         case .and:
-            return true
+            return 2
         case .or:
-            return true
+            return 2
         case .xor:
-            return true
-        case .swap:
-            return true
+            return 2
         case .equal:
-            return true
+            return 2
         default:
-            return false
+            return 1
         }
     }
     
-    func processTwoBits(firstBit: Bool, secondBit: Bool) -> [Bool] {
-        var output = [Bool]()
-        switch self {
-        case .and:
-            output.append(firstBit && secondBit)
-        case .or:
-            output.append(firstBit || secondBit)
-        case .xor:
-            output.append(firstBit != secondBit)
-        case .swap:
-            output.append(firstBit)
-            output.append(secondBit)
-        case .equal:
-            output.append(firstBit == secondBit)
-        default:
-            break
-        }
-        return output
-    }
-    
-    func processSingleBit(bit: Bool) -> [Bool] {
-        var output = [Bool]()
+    func process(words: [WordType]) -> [WordType] {
+        var result = [WordType]()
         switch self {
         case .dupe:
-            output.append(bit)
-            output.append(bit)
+            if words.count > 0 {
+                result.append(words[0])
+                result.append(words[0])
+            }
         case .remove:
             break
         case .copy:
-            output.append(bit)
+            if words.count > 0 {
+                result.append(words[0])
+            }
         case .invert:
-            output.append(!bit)
+            if words.count > 0 {
+                result.append(words[0].invert())
+            }
         case .one:
-            output.append(true)
+            result.append(WordType(value: 1))
         case .zero:
-            output.append(false)
-        default:
-            break
+            result.append(WordType(value: 0))
+        case .and:
+            if words.count > 1 {
+                result.append(words[0].and(words[1]))
+            }
+        case .or:
+            if words.count > 1 {
+                result.append(words[0].and(words[1]))
+            }
+        case .xor:
+            if words.count > 1 {
+                result.append(words[0].xor(words[1]))
+            }
+        case .equal:
+            if words.count > 1 {
+                result.append(words[0].equals(words[1]))
+            }
         }
-        return output
+        return result
     }
 }
 
 extension Rule {
     static var random: Rule {
-        let choice = Int.random(in: 0...10)
+        let choice = Int.random(in: 0...9)
         if choice == 0 { return .dupe }
         else if choice == 1 { return .remove }
         else if choice == 2 { return .copy }
@@ -97,7 +91,6 @@ extension Rule {
         else if choice == 6 { return .and }
         else if choice == 7 { return .or }
         else if choice == 8 { return .xor }
-        else if choice == 9 { return .swap }
         else { return .equal }
     }
 }

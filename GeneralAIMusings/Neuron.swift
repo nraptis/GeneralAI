@@ -27,8 +27,8 @@ class Neuron<WordType: Wordable> {
         self.queue = NeuronQueue<WordType>(capacity: queueSize)
     }
     
-    var rules = [Rule]()
-    var connections = [Neuron]()
+    var rules = [Rule<WordType>]()
+    var connections = [Neuron<WordType>]()
     
     var ruleIndex = 0
     var connectionIndex = 0
@@ -43,7 +43,7 @@ class Neuron<WordType: Wordable> {
         return rules.count
     }
     
-    func getCurrentRule() -> Rule? {
+    func getCurrentRule() -> Rule<WordType>? {
         if ruleIndex >= 0 && ruleIndex < rules.count {
             return rules[ruleIndex]
         }
