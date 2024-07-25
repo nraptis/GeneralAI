@@ -73,7 +73,7 @@ class Simulation {
                 anyBrain = randomBrain.clone()
             } else {
                 // We have no brains, start with a fresh one...
-                anyBrain = Brain<Word4>()
+                anyBrain = Brain<Word4>(queueSize: 8)
             }
             
             // Mutate the internal wiring of the brain...

@@ -9,8 +9,20 @@ import Foundation
 
 class Brain<WordType: Wordable> {
     
-    var inputNeuron = Neuron<WordType>()
-    var outputNeuron = Neuron<WordType>()
+    
+    let inputNeuron: Neuron<WordType>
+    let outputNeuron: Neuron<WordType>
+    private let placeholderNeuron: Neuron<WordType>
+    
+    let queueSize: Int
+    init(queueSize: Int) {
+        self.queueSize = queueSize
+        inputNeuron = Neuron<WordType>(queueSize: queueSize)
+        outputNeuron = Neuron<WordType>(queueSize: queueSize)
+        placeholderNeuron = Neuron<WordType>(queueSize: queueSize)
+    }
+    
+    
     var pulseCount = 0
     
     var neurons = [Neuron<WordType>]()
@@ -34,13 +46,7 @@ class Brain<WordType: Wordable> {
     }
     
     func mutate() -> Brain<WordType> {
-        let result = Brain<WordType>()
-        result.inputNeuron = inputNeuron.clone()
-        
-        result.axons.append(.init(neuronIndexA: .input, neuronIndexB: .output, direction: .a_to_b))
-        
-        result.inputNeuron.rules.append(.one)
-        
+        let result = Brain<WordType>(queueSize: queueSize)
         result.pulseCount = 1
         
         
@@ -144,7 +150,7 @@ class Brain<WordType: Wordable> {
     }
     
     func clone() -> Brain<WordType> {
-        let result = Brain<WordType>()
+        let result = Brain<WordType>(queueSize: queueSize)
         
         return result
     }
@@ -153,7 +159,7 @@ class Brain<WordType: Wordable> {
         
     }
     
-    private let placeholderNeuron = Neuron<WordType>()
+    
     func getNeuron(at index: NeuronIndex) -> Neuron<WordType> {
         switch index {
         case .input:
@@ -176,16 +182,16 @@ class Brain<WordType: Wordable> {
         // 1.) Clear out all the in/out neurons for
         //     all of the neurons, including the input and output...
         inputNeuron.connections.removeAll(keepingCapacity: true)
-        inputNeuron.inputBits.removeAll(keepingCapacity: true)
-        inputNeuron.outputBits.removeAll(keepingCapacity: true)
+        //inputNeuron.inputBits.removeAll(keepingCapacity: true)
+        //inputNeuron.outputBits.removeAll(keepingCapacity: true)
         
         outputNeuron.connections.removeAll(keepingCapacity: true)
-        outputNeuron.inputBits.removeAll(keepingCapacity: true)
-        outputNeuron.outputBits.removeAll(keepingCapacity: true)
+        //outputNeuron.inputBits.removeAll(keepingCapacity: true)
+        //outputNeuron.outputBits.removeAll(keepingCapacity: true)
         for neuron in neurons {
             neuron.connections.removeAll(keepingCapacity: true)
-            neuron.inputBits.removeAll(keepingCapacity: true)
-            neuron.outputBits.removeAll(keepingCapacity: true)
+            //neuron.inputBits.removeAll(keepingCapacity: true)
+            //neuron.outputBits.removeAll(keepingCapacity: true)
         }
         
         for axon in axons {
@@ -205,7 +211,8 @@ class Brain<WordType: Wordable> {
     
     func process_step_1(dataStream: DataStream<WordType>) {
         for word in dataStream.words {
-            inputNeuron.appendWordToInput(word: word)
+            //inputNeuron.appendWordToInput(word: word)
+            
         }
     }
     
@@ -218,17 +225,19 @@ class Brain<WordType: Wordable> {
         processNeuronList.append(outputNeuron)
         
         for index in processNeuronList.indices {
-            processNeuronList[index].index = index
+            processNeuronList[index].neuronIndex = index
         }
     }
     
     func pulse_step_0() {
         // Clear all the outputbits...
         for neuron in processNeuronList {
-            neuron.outputBits.removeAll(keepingCapacity: true)
+            //neuron.outputBits.removeAll(keepingCapacity: true)
+            
         }
         
         //     a.) For each neuron (in order)
+        /*
         for neuron in processNeuronList {
             //       i.) For each input bit, paired with corresponding rule
             if neuron.inputBits.count > 0 && neuron.rules.count > 0 {
@@ -263,18 +272,21 @@ class Brain<WordType: Wordable> {
                 }
             }
         }
+        */
     }
     
     func pulse_step_1() {
         
         // Clear all the inputbits...
         for neuron in processNeuronList {
-            neuron.inputBits.removeAll(keepingCapacity: true)
+            //neuron.inputBits.removeAll(keepingCapacity: true)
+            
         }
         
         // Now we do the round robit distribution...
         // So the data zips all around in the brain...
         
+        /*
         for neuron in processNeuronList {
             if (neuron.outputBits.count > 0) && (neuron.connections.count > 0) {
                 
@@ -291,11 +303,13 @@ class Brain<WordType: Wordable> {
                 }
             }
         }
+        */
     }
     
     func process_step_3() -> DataStream<WordType> {
         let result = DataStream<WordType>()
         
+        /*
         var resultBitIndex = 0
         while resultBitIndex < outputNeuron.inputBits.count {
             
@@ -317,6 +331,7 @@ class Brain<WordType: Wordable> {
             let resultWord = WordType(value: resultValue)
             result.words.append(resultWord)
         }
+        */
         
         return result
     }

@@ -11,7 +11,7 @@ import XCTest
 
 final class DinkyBoyTests: XCTestCase {
     
-    func testQueryBus() {
+    func getQueryBus() -> Bus<Word1> {
         let queryBus = Bus<Word1>()
         queryBus.write(Word1(value: 1))
         queryBus.write(Word1(value: 1))
@@ -20,6 +20,22 @@ final class DinkyBoyTests: XCTestCase {
         queryBus.write(Word1(value: 0))
         queryBus.write(Word1(value: 1))
         queryBus.write(Word1(value: 0))
+    }
+    
+    struct TestPieces {
+        let brain: Brain<Word1>
+        //let inputNeuron: 
+    }
+    
+    func getBrain() -> Brain<Word1> {
+        
+        let result = Brain<Word1>()
+        
+        
+    }
+    
+    func testQueryBus() {
+        
         
         guard let read1 = queryBus.read() else {
             XCTFail("Expected read1 to not be nil")
