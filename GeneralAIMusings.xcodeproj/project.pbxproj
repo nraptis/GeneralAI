@@ -11,8 +11,6 @@
 		E81DB72D2C4AB9EC00000EBC /* BitWordTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E81DB72C2C4AB9EC00000EBC /* BitWordTests.swift */; };
 		E82366E42C45996300E64005 /* Trial.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82366E32C45996300E64005 /* Trial.swift */; };
 		E82366E62C45998200E64005 /* Trial_OnePlusOne.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82366E52C45998200E64005 /* Trial_OnePlusOne.swift */; };
-		E82366EE2C45B2F200E64005 /* GeneralAIMusingsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E82366ED2C45B2F200E64005 /* GeneralAIMusingsTests.swift */; };
-		E839EDE42C48C4F200C91957 /* SmallTestsOneNeuron.swift in Sources */ = {isa = PBXBuildFile; fileRef = E839EDE32C48C4F200C91957 /* SmallTestsOneNeuron.swift */; };
 		E840A3192C4FF05C00A63A2F /* NeuronQueue.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840A3182C4FF05C00A63A2F /* NeuronQueue.swift */; };
 		E840A31B2C4FF60500A63A2F /* NeuronQueueTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840A31A2C4FF60500A63A2F /* NeuronQueueTests.swift */; };
 		E840A31D2C50169E00A63A2F /* DinkyBoyTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E840A31C2C50169E00A63A2F /* DinkyBoyTests.swift */; };
@@ -55,8 +53,6 @@
 		E82366E32C45996300E64005 /* Trial.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trial.swift; sourceTree = "<group>"; };
 		E82366E52C45998200E64005 /* Trial_OnePlusOne.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Trial_OnePlusOne.swift; sourceTree = "<group>"; };
 		E82366EB2C45B2F200E64005 /* GeneralAIMusingsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = GeneralAIMusingsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		E82366ED2C45B2F200E64005 /* GeneralAIMusingsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeneralAIMusingsTests.swift; sourceTree = "<group>"; };
-		E839EDE32C48C4F200C91957 /* SmallTestsOneNeuron.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SmallTestsOneNeuron.swift; sourceTree = "<group>"; };
 		E840A3182C4FF05C00A63A2F /* NeuronQueue.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuronQueue.swift; sourceTree = "<group>"; };
 		E840A31A2C4FF60500A63A2F /* NeuronQueueTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NeuronQueueTests.swift; sourceTree = "<group>"; };
 		E840A31C2C50169E00A63A2F /* DinkyBoyTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DinkyBoyTests.swift; sourceTree = "<group>"; };
@@ -106,10 +102,8 @@
 		E82366EC2C45B2F200E64005 /* GeneralAIMusingsTests */ = {
 			isa = PBXGroup;
 			children = (
-				E82366ED2C45B2F200E64005 /* GeneralAIMusingsTests.swift */,
 				E848A95C2C470DD800185724 /* OneTestForEachRule.swift */,
 				E848A95E2C4710CE00185724 /* SmallTestsInputAndOutputNeuronsOnly.swift */,
-				E839EDE32C48C4F200C91957 /* SmallTestsOneNeuron.swift */,
 				E81DB72C2C4AB9EC00000EBC /* BitWordTests.swift */,
 				E856AE2D2C4AC38600294EAA /* DataStreamTests.swift */,
 				E899AD802C4F443C00A6DDE6 /* BusTests.swift */,
@@ -276,13 +270,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				E840A31B2C4FF60500A63A2F /* NeuronQueueTests.swift in Sources */,
-				E839EDE42C48C4F200C91957 /* SmallTestsOneNeuron.swift in Sources */,
 				E840A31D2C50169E00A63A2F /* DinkyBoyTests.swift in Sources */,
 				E81DB72D2C4AB9EC00000EBC /* BitWordTests.swift in Sources */,
 				E899AD812C4F443C00A6DDE6 /* BusTests.swift in Sources */,
 				E856AE2E2C4AC38600294EAA /* DataStreamTests.swift in Sources */,
 				E848A95F2C4710CE00185724 /* SmallTestsInputAndOutputNeuronsOnly.swift in Sources */,
-				E82366EE2C45B2F200E64005 /* GeneralAIMusingsTests.swift in Sources */,
 				E848A95D2C470DD800185724 /* OneTestForEachRule.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

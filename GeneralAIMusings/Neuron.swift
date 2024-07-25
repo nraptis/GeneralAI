@@ -28,7 +28,6 @@ class Neuron<WordType: Wordable> {
     }
     
     var rules = [Rule]()
-    
     var connections = [Neuron]()
     
     var ruleIndex = 0
@@ -36,14 +35,30 @@ class Neuron<WordType: Wordable> {
     var neuronIndex = 0
     
     func clone() -> Neuron {
-        
         let result = Neuron(queueSize: queue.capacity)
-        
         return result
     }
     
     func getRuleCount() -> Int {
         return rules.count
+    }
+    
+    func getCurrentRule() -> Rule? {
+        if ruleIndex >= 0 && ruleIndex < rules.count {
+            return rules[ruleIndex]
+        }
+        return nil
+    }
+    
+    func getCurrentConnection() -> Neuron? {
+        if connectionIndex >= 0 && connectionIndex < connections.count {
+            return connections[connectionIndex]
+        }
+        return nil
+    }
+    
+    func write(words: [WordType]) {
+        queue.write(words)
     }
 }
 

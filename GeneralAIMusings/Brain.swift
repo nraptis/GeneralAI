@@ -9,6 +9,7 @@ import Foundation
 
 class Brain<WordType: Wordable> {
     
+    let queryBus = Bus<WordType>()
     
     let inputNeuron: Neuron<WordType>
     let outputNeuron: Neuron<WordType>
@@ -357,4 +358,17 @@ class Brain<WordType: Wordable> {
         
         return process_step_3()
     }
+    
+    func writeQuery(word: WordType) {
+        queryBus.write(word)
+    }
+    
+    func writeQuery(words: [WordType]) {
+        queryBus.write(words)
+    }
+    
+    func writeQuery(queryBus: Bus<WordType>) {
+        self.queryBus.write(queryBus)
+    }
+    
 }

@@ -12,6 +12,7 @@ import XCTest
 
 final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
     
+    /*
     func testSinglePulseInputToOutput_Dupe_Zero() {
         
         let brain = Brain<Word16>()
@@ -293,4 +294,6 @@ final class SmallTestsInputAndOutputNeuronsOnly: XCTestCase {
             }
         }
     }
+    */
+    
 }

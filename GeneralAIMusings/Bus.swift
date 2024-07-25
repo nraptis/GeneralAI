@@ -52,6 +52,10 @@ class Bus<WordType: Wordable> {
         }
     }
     
+    func write(_ bus: Bus<WordType>) {
+        write(bus.contents)
+    }
+    
     func canRead() -> Bool {
         if readCursor < length {
             return true
