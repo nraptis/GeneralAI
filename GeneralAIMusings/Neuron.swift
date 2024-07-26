@@ -22,6 +22,8 @@ class Neuron<WordType: Wordable> {
         case replace
     }
     
+    var name = ""
+    
     let queue: NeuronQueue<WordType>
     init(queueSize: Int) {
         self.queue = NeuronQueue<WordType>(capacity: queueSize)
@@ -34,14 +36,32 @@ class Neuron<WordType: Wordable> {
     var connectionIndex = 0
     var neuronIndex = 0
     
+    var isVisited = false
+    var isVisitedCurrentPulse = false
+    
+    
     func clone() -> Neuron {
         let result = Neuron(queueSize: queue.capacity)
         return result
     }
     
+    func cycle() {
+        ruleIndex += 1
+        if ruleIndex >= rules.count {
+            ruleIndex = 0
+        }
+        
+        connectionIndex += 1
+        if connectionIndex >= connections.count {
+            connectionIndex = 0
+        }
+    }
+    
     func clear() {
         connections.removeAll(keepingCapacity: true)
         queue.removeAll()
+        isVisited = false
+        isVisitedCurrentPulse = false
     }
     
     func getRuleCount() -> Int {
@@ -64,6 +84,18 @@ class Neuron<WordType: Wordable> {
     
     func write(words: [WordType]) {
         queue.write(words)
+    }
+}
+
+extension Neuron: Equatable {
+    static func == (lhs: Neuron<WordType>, rhs: Neuron<WordType>) -> Bool {
+        lhs.neuronIndex == rhs.neuronIndex
+    }
+}
+
+extension Neuron: Hashable {
+    func hash(into hasher: inout Hasher) {
+        hasher.combine(neuronIndex)
     }
 }
 

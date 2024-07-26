@@ -54,18 +54,26 @@ final class DinkyBoyTests: XCTestCase {
                                  neuronIndexB: .output,
                                  direction: .a_to_b))
         brain.axons.append(.init(neuronIndexA: .body(2),
+                                 neuronIndexB: .output,
+                                 direction: .a_to_b))
+        brain.axons.append(.init(neuronIndexA: .body(2),
                                  neuronIndexB: .body(1),
                                  direction: .a_to_b))
         
         brain.inputNeuron.rules.append(.dupe)
         brain.inputNeuron.rules.append(.xor)
+        brain.inputNeuron.name = "inputNeuron"
         
         topNeuron.rules.append(.equal)
         topNeuron.rules.append(.dupe)
         topNeuron.rules.append(.copy)
+        topNeuron.name = "topNeuron"
         
         bottomNeuron.rules.append(.copy)
         bottomNeuron.rules.append(.dupe)
+        bottomNeuron.name = "bottomNeuron"
+        
+        brain.outputNeuron.name = "outputNeuron"
         
         return TestPieces(brain: brain,
                           inputNeuron: brain.inputNeuron,
@@ -159,7 +167,7 @@ final class DinkyBoyTests: XCTestCase {
     
     func validate(bus: Bus<Word1>, name: String, expectedValues: [UInt32]) -> Bool {
         
-        let contents = bus.contents.map { $0.getValue() }
+        let contents = bus.contentsUnread.map { $0.getValue() }
         if contents.count != expectedValues.count {
             XCTFail("[Bus] Expected \(expectedValues.count) words on \(name), got \(contents.count)")
             return false
@@ -171,9 +179,7 @@ final class DinkyBoyTests: XCTestCase {
                 return false
             }
         }
-        
         return true
-        
     }
     
     func testValidate_A() {
@@ -267,17 +273,14 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: neuron, name: "test neuron 1", expectedValues: [0, 1, 1]) {
             return
         }
-        
         _ = neuron.queue.read()
         if !validate(neuron: neuron, name: "test neuron 1", expectedValues: [1, 1]) {
             return
         }
-        
         neuron.queue.write(Word1(value: 0))
         if !validate(neuron: neuron, name: "test neuron 1", expectedValues: [1, 1, 0]) {
             return
         }
-        
         _ = neuron.queue.read(2)
         if !validate(neuron: neuron, name: "test neuron 1", expectedValues: [0]) {
             return
@@ -300,16 +303,11 @@ final class DinkyBoyTests: XCTestCase {
     
     func executePulses(testPieces: TestPieces, pulseCount: Int) {
         let brain = testPieces.brain
-        
         brain.process_step_0()
         brain.process_step_1()
-        
         var loopIndex = 0
         while loopIndex < pulseCount {
-            
-            brain.pulse_step_0()
-            brain.pulse_step_1()
-            
+            brain.pulse()
             loopIndex += 1
         }
     }
@@ -328,7 +326,6 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: [1, 1, 0, 1, 0, 1, 0]) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: []) { return }
-        
         if inputNeuron.ruleIndex != 0 {
             XCTFail("expected ruleIndex == 0 on input neuron, got \(inputNeuron.ruleIndex)")
             return
@@ -369,7 +366,6 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: [1, 0, 1, 0, 1, 0]) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1]) { return }
-        
         if inputNeuron.ruleIndex != 1 {
             XCTFail("expected ruleIndex == 1 on input neuron, got \(inputNeuron.ruleIndex)")
             return
@@ -410,7 +406,6 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: [1, 0, 1, 0]) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1, 1]) { return }
-        
         if inputNeuron.ruleIndex != 0 {
             XCTFail("expected ruleIndex == 0 on input neuron, got \(inputNeuron.ruleIndex)")
             return
@@ -419,8 +414,8 @@ final class DinkyBoyTests: XCTestCase {
             XCTFail("expected connectionIndex == 0 on input neuron, got \(inputNeuron.connectionIndex)")
             return
         }
-        if topNeuron.ruleIndex != 2 {
-            XCTFail("expected ruleIndex == 2 on top neuron, got \(topNeuron.ruleIndex)")
+        if topNeuron.ruleIndex != 1 {
+            XCTFail("expected ruleIndex == 1 on top neuron, got \(topNeuron.ruleIndex)")
             return
         }
         if topNeuron.connectionIndex != 0 {
@@ -460,8 +455,8 @@ final class DinkyBoyTests: XCTestCase {
             XCTFail("expected connectionIndex == 1 on input neuron, got \(inputNeuron.connectionIndex)")
             return
         }
-        if topNeuron.ruleIndex != 0 {
-            XCTFail("expected ruleIndex == 0 on top neuron, got \(topNeuron.ruleIndex)")
+        if topNeuron.ruleIndex != 2 {
+            XCTFail("expected ruleIndex == 2 on top neuron, got \(topNeuron.ruleIndex)")
             return
         }
         if topNeuron.connectionIndex != 0 {
@@ -492,6 +487,31 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: [0]) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1, 1, 1, 1, 1]) { return }
+        
+        if inputNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on input neuron, got \(inputNeuron.ruleIndex)")
+            return
+        }
+        if inputNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on input neuron, got \(inputNeuron.connectionIndex)")
+            return
+        }
+        if topNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on top neuron, got \(topNeuron.ruleIndex)")
+            return
+        }
+        if topNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on top neuron, got \(topNeuron.connectionIndex)")
+            return
+        }
+        if bottomNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on bottom neuron, got \(bottomNeuron.ruleIndex)")
+            return
+        }
+        if bottomNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on bottom neuron, got \(bottomNeuron.connectionIndex)")
+            return
+        }
     }
     
     func testPulse_5() {
@@ -508,6 +528,30 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: []) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1, 1, 1, 1, 1, 1]) { return }
+        if inputNeuron.ruleIndex != 1 {
+            XCTFail("expected ruleIndex == 1 on input neuron, got \(inputNeuron.ruleIndex)")
+            return
+        }
+        if inputNeuron.connectionIndex != 1 {
+            XCTFail("expected connectionIndex == 1 on input neuron, got \(inputNeuron.connectionIndex)")
+            return
+        }
+        if topNeuron.ruleIndex != 1 {
+            XCTFail("expected ruleIndex == 1 on top neuron, got \(topNeuron.ruleIndex)")
+            return
+        }
+        if topNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on top neuron, got \(topNeuron.connectionIndex)")
+            return
+        }
+        if bottomNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on bottom neuron, got \(bottomNeuron.ruleIndex)")
+            return
+        }
+        if bottomNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on bottom neuron, got \(bottomNeuron.connectionIndex)")
+            return
+        }
     }
     
     func testPulse_6() {
@@ -524,6 +568,30 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: []) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1, 1, 1, 1, 1, 1, 0, 0]) { return }
+        if inputNeuron.ruleIndex != 1 {
+            XCTFail("expected ruleIndex == 1 on input neuron, got \(inputNeuron.ruleIndex)")
+            return
+        }
+        if inputNeuron.connectionIndex != 1 {
+            XCTFail("expected connectionIndex == 1 on input neuron, got \(inputNeuron.connectionIndex)")
+            return
+        }
+        if topNeuron.ruleIndex != 2 {
+            XCTFail("expected ruleIndex == 2 on top neuron, got \(topNeuron.ruleIndex)")
+            return
+        }
+        if topNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on top neuron, got \(topNeuron.connectionIndex)")
+            return
+        }
+        if bottomNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on bottom neuron, got \(bottomNeuron.ruleIndex)")
+            return
+        }
+        if bottomNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on bottom neuron, got \(bottomNeuron.connectionIndex)")
+            return
+        }
     }
     
     func testPulse_7() {
@@ -540,6 +608,30 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: []) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1, 1, 1, 1, 1, 1, 0, 0, 0]) { return }
+        if inputNeuron.ruleIndex != 1 {
+            XCTFail("expected ruleIndex == 1 on input neuron, got \(inputNeuron.ruleIndex)")
+            return
+        }
+        if inputNeuron.connectionIndex != 1 {
+            XCTFail("expected connectionIndex == 1 on input neuron, got \(inputNeuron.connectionIndex)")
+            return
+        }
+        if topNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on top neuron, got \(topNeuron.ruleIndex)")
+            return
+        }
+        if topNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on top neuron, got \(topNeuron.connectionIndex)")
+            return
+        }
+        if bottomNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on bottom neuron, got \(bottomNeuron.ruleIndex)")
+            return
+        }
+        if bottomNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on bottom neuron, got \(bottomNeuron.connectionIndex)")
+            return
+        }
     }
     
     func testPulse_8() {
@@ -556,6 +648,29 @@ final class DinkyBoyTests: XCTestCase {
         if !validate(neuron: outputNeuron, name: "output neuron", expectedValues: []) { return }
         if !validate(bus: brain.queryBus, name: "query bus", expectedValues: []) { return }
         if !validate(bus: brain.responseBus, name: "response bus", expectedValues: [1, 1, 1, 1, 1, 1, 0, 0, 0]) { return }
+        if inputNeuron.ruleIndex != 1 {
+            XCTFail("expected ruleIndex == 1 on input neuron, got \(inputNeuron.ruleIndex)")
+            return
+        }
+        if inputNeuron.connectionIndex != 1 {
+            XCTFail("expected connectionIndex == 1 on input neuron, got \(inputNeuron.connectionIndex)")
+            return
+        }
+        if topNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on top neuron, got \(topNeuron.ruleIndex)")
+            return
+        }
+        if topNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on top neuron, got \(topNeuron.connectionIndex)")
+            return
+        }
+        if bottomNeuron.ruleIndex != 0 {
+            XCTFail("expected ruleIndex == 0 on bottom neuron, got \(bottomNeuron.ruleIndex)")
+            return
+        }
+        if bottomNeuron.connectionIndex != 0 {
+            XCTFail("expected connectionIndex == 0 on bottom neuron, got \(bottomNeuron.connectionIndex)")
+            return
+        }
     }
-    
 }

@@ -23,9 +23,29 @@ class Bus<WordType: Wordable> {
         capacity = 0
     }
     
-    var contents: [WordType] {
+    var contentsAll: [WordType] {
         var result = [WordType]()
         var loopIndex = 0
+        while loopIndex < length {
+            result.append(buffer[loopIndex])
+            loopIndex += 1
+        }
+        return result
+    }
+    
+    var contentsRead: [WordType] {
+        var result = [WordType]()
+        var loopIndex = 0
+        while loopIndex < readCursor {
+            result.append(buffer[loopIndex])
+            loopIndex += 1
+        }
+        return result
+    }
+    
+    var contentsUnread: [WordType] {
+        var result = [WordType]()
+        var loopIndex = readCursor
         while loopIndex < length {
             result.append(buffer[loopIndex])
             loopIndex += 1
@@ -53,7 +73,7 @@ class Bus<WordType: Wordable> {
     }
     
     func write(_ bus: Bus<WordType>) {
-        write(bus.contents)
+        write(bus.contentsAll)
     }
     
     func canRead() -> Bool {

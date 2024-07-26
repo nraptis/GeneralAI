@@ -22,7 +22,7 @@ final class BusTests: XCTestCase {
             XCTFail("testBusOneWord Empty Bus")
             return
         }
-        let contents = bus.contents
+        let contents = bus.contentsAll
         guard contents.count == 1 else {
             XCTFail("testBusOneWord Empty Contents")
             return
@@ -150,7 +150,7 @@ final class BusTests: XCTestCase {
                 bus.write(chunkArray.map { Word32(value: $0) } )
             }
             
-            let contents = bus.contents.map { $0.getValue() }
+            let contents = bus.contentsAll.map { $0.getValue() }
             if contents != testArray {
                 XCTFail("testBus_10000_WriteOnly @ \(OUTER_LOOP) Expected \(testArray) got \(contents)")
                 return

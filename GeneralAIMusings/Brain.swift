@@ -169,8 +169,8 @@ class Brain<WordType: Wordable> {
         case .output:
             return outputNeuron
         case .body(let index):
-            if index >= 0 && index < neurons.count {
-                return neurons[index]
+            if index > 0 && index <= neurons.count {
+                return neurons[index - 1]
             } else {
                 return placeholderNeuron
             }
@@ -207,7 +207,6 @@ class Brain<WordType: Wordable> {
     func process_step_1() {
         
         processNeuronList.removeAll(keepingCapacity: true)
-        
         processNeuronList.append(inputNeuron)
         processNeuronList.append(contentsOf: neurons)
         processNeuronList.append(outputNeuron)
@@ -217,103 +216,73 @@ class Brain<WordType: Wordable> {
         }
     }
     
-    func pulse_step_0() {
-        
-        //     a.) For each neuron (in order)
-        /*
-        for neuron in processNeuronList {
-            //       i.) For each input bit, paired with corresponding rule
-            if neuron.inputBits.count > 0 && neuron.rules.count > 0 {
-                var bitIndex = 0
-                var ruleIndex = 0
-                while bitIndex < neuron.inputBits.count {
-                    
-                    let bit1 = neuron.inputBits[bitIndex]
-                    let rule = neuron.rules[ruleIndex]
-                    
-                    if rule.isTwoBitRule {
-                        bitIndex += 1
-                        if bitIndex < neuron.inputBits.count {
-                            let bit2 = neuron.inputBits[bitIndex]
+    private func prepareInputNeuronForPulse() {
+        if let rule = inputNeuron.getCurrentRule() {
+            let numberOfWordsRequired = rule.getNumberOfWordsRequired()
+            let additionalWordsRequired = numberOfWordsRequired - inputNeuron.queue.count
+            if additionalWordsRequired > 0 {
+                if queryBus.canRead(additionalWordsRequired) {
+                    let additionalFetchedWordsForPulse = queryBus.read(additionalWordsRequired)
+                    inputNeuron.queue.write(additionalFetchedWordsForPulse)
+                }
+            }
+        }
+    }
+    
+    private var visitedStackIndex = 0
+    private var visitedStack = [Neuron<WordType>]()
+    private func executeVisitedStack() {
+        while visitedStackIndex < visitedStack.count {
+            let neuron = visitedStack[visitedStackIndex]
+            neuron.isVisited = true
+            if neuron.isVisitedCurrentPulse == false {
+                neuron.isVisitedCurrentPulse = true
+                if let rule = neuron.getCurrentRule(), let connection = neuron.getCurrentConnection() {
+                    let numberOfWordsRequired = rule.getNumberOfWordsRequired()
+                    if neuron.queue.canRead(numberOfWordsRequired) {
+                        let wordsToProcess = neuron.queue.read(numberOfWordsRequired)
+                        let resultOfRule = rule.process(words: wordsToProcess)
+                        if connection == outputNeuron {
+                            responseBus.write(resultOfRule)
+                        } else {
+                            connection.queue.write(resultOfRule)
                             
-                            let bitsFromApplyingRuleToBit = rule.processTwoBits(firstBit: bit1, secondBit: bit2)
-                            neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
-                            
-                            bitIndex += 1
+                            if connection.isVisitedCurrentPulse == false {
+                                visitedStack.append(connection)
+                            }
                         }
-                        
-                    } else {
-                        let bitsFromApplyingRuleToBit = rule.processSingleBit(bit: bit1)
-                        neuron.outputBits.append(contentsOf: bitsFromApplyingRuleToBit)
-                        bitIndex += 1
-                    }
-                    
-                    ruleIndex += 1
-                    if ruleIndex >= neuron.rules.count {
-                        ruleIndex = 0
+                        neuron.cycle()
                     }
                 }
             }
+            visitedStackIndex += 1
         }
-        */
+        
     }
     
-    func pulse_step_1() {
+    func pulse() {
         
-        // Clear all the inputbits...
         for neuron in processNeuronList {
-            //neuron.inputBits.removeAll(keepingCapacity: true)
-            
+            neuron.isVisitedCurrentPulse = false
         }
         
-        // Now we do the round robit distribution...
-        // So the data zips all around in the brain...
+        prepareInputNeuronForPulse()
         
-        /*
+        visitedStack.removeAll(keepingCapacity: true)
+        visitedStackIndex = 0
+        visitedStack.append(inputNeuron)
+        
+        
+        executeVisitedStack()
+        
         for neuron in processNeuronList {
-            if (neuron.outputBits.count > 0) && (neuron.connections.count > 0) {
-                
-                var connectionIndex = 0
-                for bit in neuron.outputBits {
-                    
-                    let connection = neuron.connections[connectionIndex]
-                    connection.inputBits.append(bit)
-                    
-                    connectionIndex += 1
-                    if connectionIndex == neuron.connections.count {
-                        connectionIndex = 0
-                    }
+            if neuron.isVisited {
+                if neuron.isVisitedCurrentPulse == false {
+                    visitedStack.append(neuron)
+                    executeVisitedStack()
                 }
             }
         }
-        */
-    }
-    
-    func process_step_3() {
-        
-        /*
-        var resultBitIndex = 0
-        while resultBitIndex < outputNeuron.inputBits.count {
-            
-            var resultValue = UInt32(0)
-            
-            var loopIndex = 0
-            while loopIndex < WordType.numberOfBits {
-                
-                if resultBitIndex < outputNeuron.inputBits.count {
-                    if outputNeuron.inputBits[resultBitIndex] {
-                        resultValue |= (1 << loopIndex)
-                    }
-                }
-                
-                resultBitIndex += 1
-                loopIndex += 1
-            }
-            
-            let resultWord = WordType(value: resultValue)
-            result.words.append(resultWord)
-        }
-        */
         
     }
     
@@ -327,14 +296,10 @@ class Brain<WordType: Wordable> {
         var loopIndex = 0
         while loopIndex < pulseCount {
             
-            pulse_step_0()
-            
-            pulse_step_1()
+            pulse()
             
             loopIndex += 1
         }
-        
-        return process_step_3()
     }
     
     func writeQuery(word: WordType) {
