@@ -39,6 +39,11 @@ class Neuron<WordType: Wordable> {
         return result
     }
     
+    func clear() {
+        connections.removeAll(keepingCapacity: true)
+        queue.removeAll()
+    }
+    
     func getRuleCount() -> Int {
         return rules.count
     }

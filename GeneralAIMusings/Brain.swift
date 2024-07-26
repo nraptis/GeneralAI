@@ -183,17 +183,10 @@ class Brain<WordType: Wordable> {
         //
         // 1.) Clear out all the in/out neurons for
         //     all of the neurons, including the input and output...
-        inputNeuron.connections.removeAll(keepingCapacity: true)
-        //inputNeuron.inputBits.removeAll(keepingCapacity: true)
-        //inputNeuron.outputBits.removeAll(keepingCapacity: true)
-        
-        outputNeuron.connections.removeAll(keepingCapacity: true)
-        //outputNeuron.inputBits.removeAll(keepingCapacity: true)
-        //outputNeuron.outputBits.removeAll(keepingCapacity: true)
+        inputNeuron.clear()
+        outputNeuron.clear()
         for neuron in neurons {
-            neuron.connections.removeAll(keepingCapacity: true)
-            //neuron.inputBits.removeAll(keepingCapacity: true)
-            //neuron.outputBits.removeAll(keepingCapacity: true)
+            neuron.clear()
         }
         
         for axon in axons {
@@ -225,11 +218,6 @@ class Brain<WordType: Wordable> {
     }
     
     func pulse_step_0() {
-        // Clear all the outputbits...
-        for neuron in processNeuronList {
-            //neuron.outputBits.removeAll(keepingCapacity: true)
-            
-        }
         
         //     a.) For each neuron (in order)
         /*
